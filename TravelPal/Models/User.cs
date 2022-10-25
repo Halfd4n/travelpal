@@ -8,12 +8,12 @@ using TravelPal.Interfaces;
 
 namespace TravelPal.Models;
 
-internal class User : IUser
+public class User : IUser
 {
     public string Username { get; set; }
     public string Password { get; set; }
     public Countries Location { get; set; }
-    public bool IsAdmin { get; set; } = false;
+    public bool IsAdmin { get; } = false;
     public List<Travel> Travels { get; set; }
 
     public User(string username, string password, Countries location)

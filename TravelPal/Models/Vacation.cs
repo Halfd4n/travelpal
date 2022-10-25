@@ -10,9 +10,13 @@ namespace TravelPal.Models;
 
 public class Vacation : Travel
 {
-    public bool AllInclusive { get; set; }
-    public Vacation(string destination, Countries country, int travelers, bool allInclusive) : base(destination, country, travelers)
+    public bool IsAllInclusive { get; set; }
+    public Vacation(string destination, Countries country, int travelers, bool isAllInclusive) : base(destination, country, travelers)
     {
-        AllInclusive = allInclusive;
+        IsAllInclusive = isAllInclusive;
+    }
+    public override string GetInfo()
+    {
+        return base.GetInfo();
     }
 }

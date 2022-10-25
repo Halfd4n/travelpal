@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="400">
+        Title="MainWindow" Height="530" Width="400" ResizeMode="NoResize">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="MediumSlateBlue"/>
@@ -14,44 +14,84 @@
     </Window.Background>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/images/TravelPalLogo.png"/>
+            <ImageBrush ImageSource="/images/travel-pal-logo.png" Opacity="0.85"/>
         </Grid.Background>
         <StackPanel>
-            <Image 
-                Source="/images/TextLogo.png"
-                Height="100">
-            </Image>
+            <Image Source="/images/text-logo.png"
+                Height="100"
+                Margin="0,30,0,0"/>
+
             <TextBox
                 x:Name="txtUsername"
-                Height="36" 
                 Width="300"
                 Margin="10"
                 BorderBrush="DarkGray"
+                Background="MintCream"
+                Foreground="#FF2E2C2C"
+                FontFamily="Arial"
+                FontSize="22"
                 BorderThickness="2"
-                Opacity="0.75">
+                Opacity="0.85"
+                VerticalAlignment="Center"
+                Text="Username"
+                TextAlignment="Center"
+                MouseDoubleClick="txtUsername_MouseDoubleClick">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </TextBox.Resources>
             </TextBox>
-            <PasswordBox
-                Height="36"
+            <Border
                 Width="300"
                 Margin="20"
                 BorderBrush="DarkGray"
+                Background="MintCream"
                 BorderThickness="2"
-                Opacity="0.75">
-            </PasswordBox>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                Opacity="0.85"
+                VerticalAlignment="Center"
+                CornerRadius="10">
+                <PasswordBox
+                    x:Name="pswPassword"
+                    Foreground="#FF2E2C2C"
+                    FontFamily="Arial"
+                    FontSize="22"
+                    Width="280"
+                    HorizontalContentAlignment="Center"
+                    BorderThickness="0"
+                    Opacity="0.85"
+                    >
+                </PasswordBox>
+            </Border>
+            <Label
+                x:Name="lblPasswordWatermark"
+                Content="Password"
+                HorizontalAlignment="Center"
+                FontFamily="Arial"
+                FontSize="22"
+                Foreground="#FF2E2C2C"
+                Opacity="0.85"
+                Width="300"
+                HorizontalContentAlignment="Center"
+                Margin="0,-52,0,20"
+                MouseDown="lblPasswordWatermark_MouseDown"
+                >
+            </Label>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button
                     x:Name="btnLogin"
                     Width="100"
                     Height="36"
                     Background="MintCream"
+                    Foreground="#FF2E2C2C"
                     Content="Sign in"
                     Margin="10,30,10,0"
                     FontFamily="Arial"
-                    Opacity="0.65"
-                    MouseEnter="btnLogin_MouseEnter"
-                    MouseLeave="btnLogin_MouseLeave"
+                    Opacity="0.85"
                     BorderThickness="3"
+                    FontSize="14"
                     BorderBrush="DarkGray"
+                    Click="btnLogin_Click"
                     >
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -64,14 +104,15 @@
                     Width="100"
                     Height="36"
                     Background="MintCream"
+                    Foreground="#FF2E2C2C"
                     Content="Register"
                     Margin="10,30,10,0"
                     FontFamily="Arial"
-                    Opacity="0.75"
-                    MouseEnter="btnRegister_MouseEnter"
-                    MouseLeave="btnRegister_MouseLeave"
+                    FontSize="14"
+                    Opacity="0.85"
                     BorderThickness="3"
                     BorderBrush="DarkGray"
+                    Click="btnRegister_Click"
                     >
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -79,6 +120,10 @@
                         </Style>
                     </Button.Resources>
                 </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Image Source="/images/slogan-text.png" Width="220" Margin="10,145,-15,0"/>
+                <Image Source="/images/Slogan.png" Height="55" Margin="0,118,0,0"/>
             </StackPanel>
         </StackPanel>
     </Grid>

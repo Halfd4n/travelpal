@@ -15,4 +15,9 @@ public class Trip : Travel
     {
         TripType = tripType;
     }
+
+    public override string GetInfo()
+    {
+        return base.GetInfo();
+    }
 }

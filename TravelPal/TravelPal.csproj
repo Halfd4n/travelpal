@@ -8,13 +8,37 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\new-user.png" />
+    <None Remove="Images\NewSuitcase.png" />
+    <None Remove="Images\Register new user.png" />
+    <None Remove="Images\slogan-text.png" />
+    <None Remove="Images\Slogan.png" />
+    <None Remove="Images\Suitcase.png" />
+    <None Remove="Images\text-logo.png" />
     <None Remove="Images\TextLogo.png" />
+    <None Remove="Images\travel-pal-logo.png" />
     <None Remove="Images\TravelPalLogo.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\TextLogo.png" />
-    <Resource Include="Images\TravelPalLogo.png" />
+    <Resource Include="Images\new-user.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slogan-text.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Slogan.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Suitcase.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\text-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\travel-pal-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
