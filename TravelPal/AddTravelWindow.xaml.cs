@@ -42,8 +42,8 @@ namespace TravelPal
             string[] tripOrVacation = new string[2] { "Trip", "Vacation" };
             cbTripOrVacation.ItemsSource = tripOrVacation;
 
-            string[] traveltype = new string[2] { "Leisure", "Occupational" };
-            cbTravelType.ItemsSource = traveltype;
+            string[] tripType = new string[2] { "Leisure", "Occupational" };
+            cbTripType.ItemsSource = tripType;
 
             UpdateListView();
         }
@@ -87,7 +87,7 @@ namespace TravelPal
 
         private void btnRemoveItem_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(packingListItem.ToString()))
+            if (packingListItem == null || String.IsNullOrEmpty(packingListItem.ToString()))
             {
                 MessageBox.Show("No item selected!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -104,7 +104,7 @@ namespace TravelPal
             string destination = txtDestination.Text;
             string country = (string)cbCountry.SelectedItem;
             string tripOrVacation = (string)cbTripOrVacation.SelectedItem;
-            string tripType = (string)cbTravelType.SelectedItem;
+            string tripType = (string)cbTripType.SelectedItem;
             bool isAllInclusive = (bool)xbAllInclusive.IsChecked;
             string noOfTravels = txtTravelerAmount.Text;
 
@@ -131,6 +131,36 @@ namespace TravelPal
             ListViewItem selectedItem = (ListViewItem)lvTravelItems.SelectedItem;
 
             IPackingListItem packingListItem = (IPackingListItem)selectedItem;
+        }
+
+        private void cbTripOrVacation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //ComboBoxItem selectedItem = (ComboBoxItem)cbTripOrVacation.SelectedItem;
+
+            string selectedItem = (string)cbTripOrVacation.SelectedItem;
+
+            bool isTrip = CheckIfTripOrVacation(selectedItem);
+
+            if (isTrip)
+            {
+                cbTripType.Visibility = Visibility.Visible;
+                xbAllInclusive.Visibility = Visibility.Hidden;
+            }
+            else if (!isTrip)
+            {
+                cbTripType.Visibility = Visibility.Hidden;
+                xbAllInclusive.Visibility = Visibility.Visible;
+            }
+        }
+
+        private bool CheckIfTripOrVacation(string selectedItem)
+        {
+            if (selectedItem.Equals("Trip"))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

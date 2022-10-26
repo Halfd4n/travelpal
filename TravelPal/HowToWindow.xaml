@@ -1,0 +1,84 @@
+﻿<Window x:Class="TravelPal.HowToWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelPal"
+        mc:Ignorable="d"
+        Title="HowToWindow" Height="400" Width="350">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="MediumSlateBlue"/>
+            <GradientStop Color="MintCream" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <StackPanel>
+            <Image Source="/images/how-to.png" Width="200"/>
+            <TextBlock
+                Foreground="#FF2E2C2C"
+                FontSize="14"
+                FontFamily="Arial"
+                Margin="0,-5,0,10"
+                TextWrapping="Wrap"
+                Text="   Well thats the question isn't it?
+                
+                Excactly how does one TravelPal?"
+                HorizontalAlignment="Center"
+                >
+            </TextBlock>
+            <TextBlock
+                Foreground="#FF2E2C2C"
+                FontSize="14"
+                FontFamily="Arial"
+                Margin="5,5,5,0"
+                TextWrapping="Wrap"
+                Text="First off, register an account. So far so good!"
+                HorizontalAlignment="Center"
+                >
+            </TextBlock>
+            <TextBlock
+                Foreground="#FF2E2C2C"
+                FontSize="14"
+                FontFamily="Arial"
+                Margin="7,5,7,0"
+                TextWrapping="Wrap"
+                Text="Next up, customize your upcoming travels to your own dreams and wishes."
+                HorizontalAlignment="Center"
+                >
+            </TextBlock>
+            <TextBlock
+                Foreground="#FF2E2C2C"
+                FontSize="14"
+                FontFamily="Arial"
+                Margin="5,10,5,0"
+                TextWrapping="Wrap"
+                Text="TravelPal is meerly your gentle guide in your next adventure. Feeling lost in the experience? Hover a moment over the element and we'll nudge you in the right direction. And remember..."
+                HorizontalAlignment="Center"
+                >
+            </TextBlock>
+            <Image Source="/images/slogan-text.png" Width="220" Margin="0,10,0,0"/>
+            <Image Source="/images/Slogan.png" Height="50" Margin="240,-58,0,0"/>
+            <Button
+                x:Name="btnClose"
+                Content="Take me there"
+                Width="120"
+                Margin="0,10,0,0"
+                FontFamily="Arial"
+                FontSize="14"
+                Background="MintCream"
+                Foreground="#FF2E2C2C"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="2"
+                Click="btnClose_Click"
+                >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

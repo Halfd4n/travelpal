@@ -105,5 +105,12 @@ namespace TravelPal
         {
 
         }
+
+        private void btnInfoHowTo_Click(object sender, RoutedEventArgs e)
+        {
+            HowToWindow howToWindow = new();
+
+            howToWindow.Show();
+        }
     }
 }

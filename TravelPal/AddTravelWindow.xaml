@@ -23,7 +23,16 @@
                 FontSize="22"
                 Margin="0,0,0,10"
                 MouseDoubleClick="txtDestination_MouseDoubleClick"
+                Foreground="#FF2E2C2C"
+                Background="MintCream"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="2"
                 >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </TextBox.Resources>
             </TextBox>
             <ComboBox
                 x:Name="cbCountry"
@@ -35,22 +44,33 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Width="300"
-                Margin="0,0,0,10">
+                Margin="0,0,0,10"
+                Foreground="#FF2E2C2C"
+                Background="MintCream"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="2"
+                >
             </ComboBox>
             <ComboBox
                 x:Name="cbTripOrVacation"
                 IsReadOnly="True"
                 FontSize="22"
-                Text="Travel Type"
+                Text="Trip or Vacation"
                 IsEditable="True"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Width="300"
-                Margin="0,0,0,10">
+                Margin="0,0,0,10"
+                Foreground="#FF2E2C2C"
+                Background="MintCream"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="2"
+                SelectionChanged="cbTripOrVacation_SelectionChanged"
+                >
             </ComboBox>
             <ComboBox
-                x:Name="cbTravelType"
-                Width="150"
+                x:Name="cbTripType"
+                Width="200"
                 Margin="0,0,0,0"
                 FontSize="22"
                 FontFamily="Arial"
@@ -59,24 +79,34 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Visibility="Hidden"
+                Foreground="#FF2E2C2C"
+                Background="MintCream"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="2"
                 >
             </ComboBox>
-            <Label
-                x:Name="lblAllInclusive"
-                Content ="All inclusive:"
-                HorizontalAlignment="Center"
-                FontFamily="Arial"
-                FontSize="22"
-                Margin="0,-33,20,0"
-                Visibility="Hidden"
-                >
-            </Label>
             <CheckBox
                 x:Name="xbAllInclusive"
                 HorizontalAlignment="Center"
-                Margin="140,-26,0,0"
+                Margin="0,-25,0,0"
+                Foreground="#FF2E2C2C"
+                Background="MintCream"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="2"
+                FlowDirection="RightToLeft"
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
                 Visibility="Hidden"
                 >
+                <TextBlock
+                    FlowDirection="LeftToRight"
+                    Text="All Inclusive:"
+                    FontSize="22"
+                    FontFamily="Arial"
+                    Foreground="#FF2E2C2C"
+                    VerticalAlignment="Center"
+                    >
+                </TextBlock>
             </CheckBox>
             <TextBox
                 x:Name="txtTravelerAmount"
@@ -87,7 +117,16 @@
                 FontSize="22"
                 Margin="0,10,0,10"
                 MouseDoubleClick="txtTravelerAmount_MouseDoubleClick"
+                Foreground="#FF2E2C2C"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="2"
+                Background="MintCream"
                 >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </TextBox.Resources>
             </TextBox>
             <ListView
                 x:Name="lvTravelItems"
@@ -97,8 +136,11 @@
                 HorizontalAlignment="Left"
                 Margin="40,0,0,0"
                 BorderBrush="MediumSlateBlue"
+                Background="MintCream"
                 BorderThickness="2"
                 SelectionChanged="lvTravelItems_SelectionChanged"
+                Foreground="#FF2E2C2C"
+                ToolTip="View of packing list items."
                 >
             </ListView>
             <Button
@@ -115,6 +157,8 @@
                 BorderBrush="MediumSlateBlue"
                 BorderThickness="2"
                 Click="btnAddItem_Click"
+                ToolTip="Click to add new item to packing list."
+                Foreground="#FF2E2C2C"
                 >
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -134,8 +178,10 @@
                 Height="30"
                 Background="MintCream"
                 BorderBrush="MediumSlateBlue"
+                Foreground="#FF2E2C2C"
                 BorderThickness="2"
                 Click="btnRemoveItem_Click"
+                ToolTip="Click to remove item from packing list."
                 >
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -150,6 +196,8 @@
                 FontFamily="Arial"
                 VerticalContentAlignment="Center"
                 BorderBrush="MediumSlateBlue"
+                Foreground="#FF2E2C2C"
+                Background="MintCream"
                 BorderThickness="2"
                 >
             </DatePicker>
@@ -164,6 +212,7 @@
                 Height="30"
                 Background="MintCream"
                 BorderBrush="MediumSlateBlue"
+                Foreground="#FF2E2C2C"
                 BorderThickness="2"
                 Margin="0,10,130,0"
                 Click="btnSaveTravel_Click"
@@ -185,6 +234,7 @@
                 Height="30"
                 Background="MintCream"
                 BorderBrush="MediumSlateBlue"
+                Foreground="#FF2E2C2C"
                 BorderThickness="2"
                 Margin="130,-30,0,0"
                 Click="btnCancel_Click"
