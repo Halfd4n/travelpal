@@ -46,11 +46,28 @@
                 VerticalAlignment="Top"
                 Margin="10,20,-23,0"
                 />
+            <Label
+                x:Name="lblCurrentUser"
+                VerticalAlignment="Top"
+                Width="120"
+                Height="30"
+                Margin="50,55,-170,0"
+                FontFamily="Arial"
+                FontWeight="SemiBold"
+                FontSize="16"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Foreground="#FF2E2C2C"
+                ToolTip="Current user."
+                />
             <Button
                 x:Name="btnMyDetails"
                 VerticalAlignment="Top"
                 Margin="50,15,0,0"
                 Click="btnMyDetails_Click"
+                Background="MintCream"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="2"
                 >
                 <Image
                     Source="/images/my-details.png"
@@ -67,6 +84,9 @@
                 x:Name="btnSignOut"
                 VerticalAlignment="Top"
                 Margin="5,15,0,0"
+                Background="MintCream"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="2"
                 Click="btnSignOut_Click"
                 >
                 <Image
@@ -89,14 +109,14 @@
             >
             <Button
                 x:Name="btnAddTravel"
-                Content="Add"
+                Content="Add Travel"
                 FontFamily="Arial"
                 Foreground="#FF2E2C2C"
                 ToolTip="Add new travel to list."
                 BorderBrush="MediumSlateBlue"
                 Background="MintCream"
                 BorderThickness="2"
-                Width="60"
+                Width="100"
                 Height="32"
                 VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Center"
@@ -111,15 +131,14 @@
             </Button>
             <Button
                 x:Name="btnRemoveTravel"
-                Content="Remove"
+                Content="Remove Travel"
                 FontFamily="Arial"
                 Foreground="#FF2E2C2C"
                 ToolTip="Remove existing travel from list."
-                Opacity="0.85"
                 BorderBrush="MediumSlateBlue"
                 Background="MintCream"
                 BorderThickness="2"
-                Width="60"
+                Width="100"
                 Height="32"
                 VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Center"
@@ -133,13 +152,12 @@
             </Button>
             <Button
                 x:Name="btnTravelDetails"
-                Content="Travel details"
+                Content="Travel Details"
                 FontFamily="Arial"
                 Foreground="#FF2E2C2C"
                 ToolTip="Display travel details."
                 Width="100"
                 Height="32"
-                Opacity="0.85"
                 BorderBrush="MediumSlateBlue"
                 Background="MintCream"
                 BorderThickness="2"
@@ -156,6 +174,7 @@
         </StackPanel>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <ListView
+                x:Name="lvTravels"
                 Height="280"
                 Opacity="0.85"
                 BorderBrush="MediumSlateBlue"

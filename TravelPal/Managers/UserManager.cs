@@ -74,4 +74,12 @@ public class UserManager
         
         return false;
     }
+
+    public void SignOutUser()
+    {
+        if (SignedInUser != null)
+        {
+            SignedInUser = null;
+        }
+    }
 }
