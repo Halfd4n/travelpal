@@ -5,8 +5,165 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="TravelsWindow" Height="450" Width="800">
+        Title="TravelsWindow" Height="530" Width="420" ResizeMode="NoResize">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="MediumSlateBlue"/>
+            <GradientStop Color="MintCream" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
-        
+        <StackPanel 
+            Orientation="Horizontal"
+            >
+            <Button
+                x:Name="btnInfoHowTo"
+                Content="i"
+                Height="20"
+                Width="20"
+                VerticalAlignment="Top"
+                Margin="15,15,0,0"
+                FontSize="14"
+                FontFamily="Bell MT"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                BorderBrush="MintCream"
+                BorderThickness="2"
+                Background="MediumSlateBlue"
+                Opacity="0.85"
+                Foreground="MintCream"
+                ToolTip="How to?"
+                >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>    
+            </Button>
+            <Image 
+                Source="/images/text-logo.png"
+                Height="70"
+                VerticalAlignment="Top"
+                Margin="10,20,-23,0"
+                />
+            <Button
+                x:Name="btnMyDetails"
+                VerticalAlignment="Top"
+                Margin="50,15,0,0"
+                Click="btnMyDetails_Click"
+                >
+                <Image
+                    Source="/images/my-details.png"
+                    Height="32"
+                    Width="50"
+                    />
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button
+                x:Name="btnSignOut"
+                VerticalAlignment="Top"
+                Margin="5,15,0,0"
+                Click="btnSignOut_Click"
+                >
+                <Image
+                    Source="/images/sign-out.png"
+                    Height="32"
+                    Width="50"
+                    />
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Margin="10,88,10,0"
+            >
+            <Button
+                x:Name="btnAddTravel"
+                Content="Add"
+                FontFamily="Arial"
+                Foreground="#FF2E2C2C"
+                ToolTip="Add new travel to list."
+                BorderBrush="MediumSlateBlue"
+                Background="MintCream"
+                BorderThickness="2"
+                Width="60"
+                Height="32"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                Margin="5,0,5,0"
+                Click="btnAddTravel_Click"
+               >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button
+                x:Name="btnRemoveTravel"
+                Content="Remove"
+                FontFamily="Arial"
+                Foreground="#FF2E2C2C"
+                ToolTip="Remove existing travel from list."
+                Opacity="0.85"
+                BorderBrush="MediumSlateBlue"
+                Background="MintCream"
+                BorderThickness="2"
+                Width="60"
+                Height="32"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                Margin="5,0,5,0"
+                Click="btnRemoveTravel_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button
+                x:Name="btnTravelDetails"
+                Content="Travel details"
+                FontFamily="Arial"
+                Foreground="#FF2E2C2C"
+                ToolTip="Display travel details."
+                Width="100"
+                Height="32"
+                Opacity="0.85"
+                BorderBrush="MediumSlateBlue"
+                Background="MintCream"
+                BorderThickness="2"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                Margin="5,0,5,0"
+                Click="btnTravelDetails_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+            <ListView
+                Height="280"
+                Opacity="0.85"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="3"
+                Width="380"
+                Margin="10,30,10,0"
+                >
+            </ListView>
+        </StackPanel>
     </Grid>
 </Window>

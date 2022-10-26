@@ -23,50 +23,41 @@ namespace TravelPal
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<IUser> allUsers = new();
-        UserManager userManager = new();
+        private UserManager userManager = new();
 
         public MainWindow()
         {
             InitializeComponent();
+        }
+        public MainWindow(UserManager userManager)
+        {
+            InitializeComponent();
 
-            userManager.SeedDefaultUsers();
+            this.userManager = userManager;
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            allUsers = userManager.GetAllUsers();
+            userManager.AllUsers = userManager.GetAllUsers();
             
             string username = txtUsername.Text;
             string password = pswPassword.Password;
 
-            bool isFoundUser = false;
+            bool isSignedInUser = userManager.SignInUser(username, password);
 
-            foreach (IUser user in allUsers)
+            if (isSignedInUser)
             {
-                if (user.Username == username && user.Password == password)
-                {
-                    isFoundUser = true;
+                TravelsWindow travelsWindow = new(userManager);
 
-                    if (user is User)
-                    { 
-                        TravelsWindow travelsWindow = new(user, userManager);
+                travelsWindow.Show();
 
-                        travelsWindow.Show();
-                    }
-                    else if(user is Admin)
-                    {
-                        TravelsWindow travelsWindow = new(user, userManager);
-
-                        travelsWindow.Show();
-                    }
-                }
+                this.Close();
             }
-
-            if (!isFoundUser)
+            else
             {
                 MessageBox.Show("Username or password is incorrect!", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+           
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)

@@ -11,28 +11,48 @@ namespace TravelPal.Managers;
 
 public class UserManager
 {
-    private List<IUser> allUsers = new();
-    private IUser signedInUser;
+    public List<IUser> AllUsers { get; set; } = new();
+    public IUser SignedInUser { get; set; }
 
-    public void SeedDefaultUsers()
+    public UserManager()
     {
-        User defaultUser = new("Gandalf", "password", Enums.Countries.USA);
+        AllUsers.Add(new User("Gandalf", "password", Enums.Countries.USA));
 
-        Admin admin = new("admin", "password", Enums.Countries.Sweden);
-
-        allUsers.Add(defaultUser);
-        allUsers.Add(admin);
+        AllUsers.Add(new Admin("admin", "password", Enums.Countries.Sweden));
     }
     public List<IUser> GetAllUsers()
     {
-        return allUsers;
+        return AllUsers;
     }
 
     public bool AddUser(IUser newUser)
     {
-        foreach(IUser user in allUsers)
+        bool isValidUser = ValidateUserName(newUser.Username);
+
+        if (!isValidUser)
         {
-            if(user.Username == newUser.Username)
+            return false;
+        }
+        
+        AllUsers.Add(newUser);
+        return true;
+    }
+
+    //public void RemoveUser(IUser userToRemove)
+    //{
+
+    //}
+
+    public bool UpdateUserName(IUser currentUser, string newUserName)
+    {
+        return true;
+    }
+
+    private bool ValidateUserName(string username)
+    {
+        foreach (IUser user in AllUsers)
+        {
+            if (user.Username.Equals(username))
             {
                 return false;
             }
@@ -40,23 +60,18 @@ public class UserManager
         return true;
     }
 
-    public void RemoveUser(IUser userToRemove)
-    {
-
-    }
-
-    public bool UpdateUserName(IUser currentUser, string newUserName)
-    {
-        return true;
-    }
-
-    public bool ValidateUserName(string username)
-    {
-        return true;
-    }
-
     public bool SignInUser (string username, string password)
     {
-        return true;
+        foreach(IUser user in AllUsers)
+        {
+            if(user.Username.Equals(username) && user.Password.Equals(password))
+            {
+                SignedInUser = user;
+
+                return true;
+            }
+        }
+        
+        return false;
     }
 }

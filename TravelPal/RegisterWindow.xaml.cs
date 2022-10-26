@@ -23,15 +23,12 @@ namespace TravelPal
     /// </summary>
     public partial class RegisterWindow : Window
     {
-        private UserManager userManager = new();
-        private List<IUser> allUsers = new();
-
+        UserManager userManager = new();
         public RegisterWindow(UserManager userManager)
         {
             InitializeComponent();
 
             this.userManager = userManager;
-            this.allUsers = userManager.GetAllUsers();
 
             string[] countries = Enum.GetNames(typeof(Countries));
             cbLocations.ItemsSource = countries;
@@ -89,8 +86,12 @@ namespace TravelPal
 
                 if (isValidNewUser)
                 {
-                    allUsers.Add(newUser);
                     MessageBox.Show($"Success! {newUser.Username} registered as new user!", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    MainWindow mainWindow = new(userManager);
+                    mainWindow.Show();
+
+                    this.Close();
                 }
                 else
                 {
@@ -118,7 +119,7 @@ namespace TravelPal
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new();
+            MainWindow mainWindow = new(userManager);
 
             mainWindow.Show();
             

@@ -21,9 +21,34 @@ namespace TravelPal
     /// </summary>
     public partial class TravelsWindow : Window
     {
-        public TravelsWindow(IUser currentUser, UserManager userManager)
+        public TravelsWindow(UserManager userManager)
         {
             InitializeComponent();
+        }
+
+        private void btnSignOut_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnMyDetails_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddTravel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnTravelDetails_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
