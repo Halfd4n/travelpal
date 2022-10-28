@@ -18,7 +18,7 @@ public class TravelManager
     }
     public void AddTravel(Travel newTravel)
     {
-        // Method to add new travel to the list of travels
+        
     }
 
     public void RemoveTravel(Travel travelToRemove)

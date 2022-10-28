@@ -28,6 +28,8 @@ namespace TravelPal
         private TravelManager travelManager = new();
         private ItemManager itemManager = new();
         private IPackingListItem packingListItem;
+        private int arrayIndex;
+        private User currentUser;
 
         public AddTravelWindow(UserManager userManager, TravelManager travelManager)
         {
@@ -45,6 +47,11 @@ namespace TravelPal
             string[] tripType = new string[2] { "Leisure", "Occupational" };
             cbTripType.ItemsSource = tripType;
 
+            if(userManager.SignedInUser is User)
+            {
+                currentUser = (User)userManager.SignedInUser;
+            }
+
             UpdateListView();
         }
 
@@ -54,7 +61,7 @@ namespace TravelPal
 
             itemManager.AllPackingListItems = itemManager.GetAllPackingListItems();
 
-            foreach(IPackingListItem packingItem in itemManager.AllPackingListItems)
+            foreach (IPackingListItem packingItem in itemManager.AllPackingListItems)
             {
                 if (packingItem is TravelDocument)
                 {
@@ -78,36 +85,131 @@ namespace TravelPal
 
         private void btnAddItem_Click(object sender, RoutedEventArgs e)
         {
-            AddNewItemWindow addNewItemWindow = new();
+            AddNewItemWindow addNewItemWindow = new(itemManager);
 
             addNewItemWindow.Show();
 
-            //itemManager.AllPackingListItems.Add(packingListItem);
+            addNewItemWindow.Closed += AddNewItemWindow_Closed;
+        }
+
+        private void AddNewItemWindow_Closed(object? sender, EventArgs e)
+        {
+            UpdateListView();
         }
 
         private void btnRemoveItem_Click(object sender, RoutedEventArgs e)
         {
-            if (packingListItem == null || String.IsNullOrEmpty(packingListItem.ToString()))
+            if (packingListItem == null)
             {
                 MessageBox.Show("No item selected!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
-                itemManager.AllPackingListItems.Remove(packingListItem);
+                itemManager.RemoveItem(packingListItem);
 
                 UpdateListView();
             }
         }
 
-        private void btnSaveTravel_Click(object sender, RoutedEventArgs e)
+        private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
+
             string destination = txtDestination.Text;
             string country = (string)cbCountry.SelectedItem;
             string tripOrVacation = (string)cbTripOrVacation.SelectedItem;
             string tripType = (string)cbTripType.SelectedItem;
             bool isAllInclusive = (bool)xbAllInclusive.IsChecked;
-            string noOfTravels = txtTravelerAmount.Text;
+            string noOfTravelers = txtTravelerAmount.Text;
 
+            string[] textInputsToTry = new string[4] {destination, country, tripOrVacation, noOfTravelers};
+            arrayIndex = 0;
+
+            try
+            {
+                foreach (string input in textInputsToTry)
+                {
+                    if (String.IsNullOrEmpty(input))
+                    {
+                        throw new FormatException("The form wasn't filled in correctly.");
+                    }
+                    
+                    arrayIndex++;
+                }
+
+                Countries countryEnum = (Countries)Enum.Parse(typeof(Countries), country);
+
+                if (tripOrVacation == "Trip")
+                {
+                    if (String.IsNullOrEmpty(tripType))
+                    {
+                        throw new Exception("The form wasn't filled in correctly.");
+                    }
+                    
+                    TripTypes tripTypeEnum = (TripTypes)Enum.Parse(typeof(TripTypes), tripType);
+
+                    bool isInteger = int.TryParse(noOfTravelers, out int travelersInteger);
+
+                    if (isInteger)
+                    {
+                        DateTime startDate = (DateTime)dpTravelStart.SelectedDate;
+
+                        DateTime endDate = (DateTime)dpTravelEnd.SelectedDate;
+
+                        int travelDays = (int)(endDate - startDate).TotalDays;
+
+                        Trip newTrip = new(destination, countryEnum, travelersInteger, itemManager.AllPackingListItems, startDate, endDate, travelDays, tripTypeEnum);
+
+                        travelManager.AddTravel(newTrip);
+
+                        currentUser.Travels.Add(newTrip);
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Number of travelers wasn't given in an integer! Please try again", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        txtTravelerAmount.Clear();
+                    }
+
+                }
+                else if (tripOrVacation == "Vacation")
+                {
+
+                }
+
+
+            }
+            catch (FormatException ex)
+            {
+                switch (arrayIndex)
+                {
+                    case 0:
+                        {
+                            MessageBox.Show($"{ex.Message} Please input a destination.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    case 1:
+                        {
+                            MessageBox.Show($"{ex.Message} Please pick a country.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    case 2:
+                        {
+                            MessageBox.Show($"{ex.Message} Please choose if you're going on a trip or vacation.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    case 3:
+                        {
+                            MessageBox.Show($"{ex.Message} Please input number of travelers", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                }
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"{ex.Message} Please choose what type of trip your taking!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -130,12 +232,16 @@ namespace TravelPal
         {
             ListViewItem selectedItem = (ListViewItem)lvTravelItems.SelectedItem;
 
-            IPackingListItem packingListItem = (IPackingListItem)selectedItem;
+            if (selectedItem != null)
+            {
+                IPackingListItem selectedPackingListItem = (IPackingListItem)selectedItem.Tag;
+
+                packingListItem = selectedPackingListItem;
+            }
         }
 
         private void cbTripOrVacation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //ComboBoxItem selectedItem = (ComboBoxItem)cbTripOrVacation.SelectedItem;
 
             string selectedItem = (string)cbTripOrVacation.SelectedItem;
 

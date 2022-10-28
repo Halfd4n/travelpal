@@ -19,14 +19,14 @@ public class Travel
     public int TravelDays { get; set; }
 
 
-    public Travel(string destination, Countries country, int travelers)
+    public Travel(string destination, Countries country, int travelers, List<IPackingListItem> packingListItems, DateTime startDate, DateTime endDate, int travelDays)
     {
         Destination = destination;
         Country = country;
         Travelers = travelers;
-        StartDate = StartDate;
-        EndDate = EndDate;
-        TravelDays = TravelDays;
+        StartDate = startDate;
+        EndDate = endDate;
+        TravelDays = travelDays;
     }
 
     public virtual string GetInfo()

@@ -12,10 +12,10 @@ public class OtherItem : IPackingListItem
     public string Name { get; set; }
     public int Quantity { get; set; }
 
-    public OtherItem()
+    public OtherItem(string name, int quantity)
     {
-        Name = Name;
-        Quantity = Quantity;
+        this.Name = name;
+        this.Quantity = quantity;
     }
     public string GetInfo()
     {

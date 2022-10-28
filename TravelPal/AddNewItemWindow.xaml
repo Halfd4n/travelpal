@@ -13,6 +13,9 @@
         </LinearGradientBrush>
     </Window.Background>
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/images/suitcase.png" Opacity="0.65"/>
+        </Grid.Background>
         <StackPanel>
             <Image
                 Source="/images/add-item.png"
@@ -30,6 +33,7 @@
                 BorderThickness="2"
                 BorderBrush="MediumSlateBlue"
                 MouseDoubleClick="txtNewItem_MouseDoubleClick"
+                VerticalContentAlignment="Center"
                 >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -45,8 +49,11 @@
                 VerticalContentAlignment="Center"
                 BorderBrush="MediumSlateBlue"
                 BorderThickness="2"
+                Margin="0,0,0,10"
                 Background="MintCream"
                 ToolTip="Check box if item is a document."
+                Checked="xbIsDocument_Checked"
+                Unchecked="xbIsDocument_Unchecked"
                 >
                 <TextBlock
                     FlowDirection="LeftToRight"
@@ -55,6 +62,95 @@
                     Foreground="#FF2E2C2C"
                     />
             </CheckBox>
+            <CheckBox
+                x:Name="xbIsDocumentRequired"
+                HorizontalAlignment="Center"
+                FlowDirection="RightToLeft"
+                FontSize="22"
+                Margin="0,5,1,0"
+                VerticalContentAlignment="Center"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="2"
+                Background="MintCream"
+                ToolTip="Check box if document is required for travel."
+                Visibility="Hidden"
+                Checked="xbIsDocumentRequired_Checked"
+                Unchecked="xbIsDocumentRequired_Unchecked"
+                >
+                <TextBlock
+                    FlowDirection="LeftToRight"
+                    Text="Required:  "
+                    FontFamily="Arial"
+                    Foreground="#FF2E2C2C"
+                    />
+            </CheckBox>
+            <TextBox
+                Width="200"
+                x:Name="txtQuantity"
+                Text="Quantity"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                FontSize="22"
+                Margin="0,-29,0,0"
+                Foreground="#FF2E2C2C"
+                Background="MintCream"
+                BorderThickness="2"
+                BorderBrush="MediumSlateBlue"
+                Visibility="Visible"
+                MouseDoubleClick="txtQuantity_MouseDoubleClick"
+                >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            <Button
+                x:Name="btnAddItem"
+                Content="Add Item"
+                FontFamily="Arial"
+                FontSize="16"
+                Width="90"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Height="30"
+                Background="MintCream"
+                BorderBrush="MediumSlateBlue"
+                Foreground="#FF2E2C2C"
+                BorderThickness="2"
+                Margin="0,50,100,0"
+                Click="btnAddItem_Click"
+                VerticalAlignment="Center"
+                >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button
+                x:Name="btnCancel"
+                Content="Cancel"
+                FontFamily="Arial"
+                FontSize="16"
+                Width="90"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Height="30"
+                Background="MintCream"
+                BorderBrush="MediumSlateBlue"
+                Foreground="#FF2E2C2C"
+                BorderThickness="2"
+                Margin="100,-30,0,0"
+                Click="btnCancel_Click"
+                VerticalAlignment="Center"
+                >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
         </StackPanel>        
     </Grid>
 </Window>

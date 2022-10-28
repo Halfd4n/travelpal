@@ -51,9 +51,9 @@
                 Foreground="#FF2E2C2C"
                 FontSize="14"
                 FontFamily="Arial"
-                Margin="5,10,5,0"
+                Margin="5,10,5,15"
                 TextWrapping="Wrap"
-                Text="TravelPal is meerly your gentle guide in your next adventure. Feeling lost in the experience? Hover a moment over the element and we'll nudge you in the right direction. And remember..."
+                Text="TravelPal is meerly your gentle guide in your next adventure. Feeling lost in the experience? Hover a moment over an element and we'll nudge you in the right direction. And remember..."
                 HorizontalAlignment="Center"
                 >
             </TextBlock>
@@ -71,6 +71,7 @@
                 BorderBrush="MediumSlateBlue"
                 BorderThickness="2"
                 Click="btnClose_Click"
+                ToolTip="Return to your list of travels."
                 >
                 <Button.Resources>
                     <Style TargetType="Border">

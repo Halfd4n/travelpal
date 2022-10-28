@@ -16,13 +16,33 @@ public class ItemManager
         return AllPackingListItems;
     }
 
-    public void AddItem()
+    public bool AddItem(IPackingListItem newItem)
     {
+        bool isValidItem = ValidateItem(newItem.Name);
 
+        if (!isValidItem)
+        {
+            return false;
+        }
+
+        AllPackingListItems.Add(newItem);
+        return true;
     }
 
-    public void RemoveItem()
+    public void RemoveItem(IPackingListItem itemToRemove)
     {
+        AllPackingListItems.Remove(itemToRemove);
+    }
 
+    private bool ValidateItem(string newItem)
+    {
+        foreach(IPackingListItem item in AllPackingListItems)
+        {
+            if (item.Name.Equals(newItem))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

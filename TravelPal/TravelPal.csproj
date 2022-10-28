@@ -8,12 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\add-item.png" />
     <None Remove="Images\add-travel.png" />
     <None Remove="Images\how-to.png" />
     <None Remove="Images\my-details.png" />
     <None Remove="Images\new-user.png" />
     <None Remove="Images\NewSuitcase.png" />
     <None Remove="Images\Register new user.png" />
+    <None Remove="Images\register-window-background.png" />
     <None Remove="Images\sign-out.png" />
     <None Remove="Images\slogan-text.png" />
     <None Remove="Images\Slogan.png" />
@@ -26,6 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\add-item.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\add-travel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -36,6 +41,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\new-user.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\register-window-background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\sign-out.png">

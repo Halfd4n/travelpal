@@ -12,10 +12,10 @@ public class TravelDocument : IPackingListItem
     public string Name { get; set; }
     public bool isRequired { get; set; }
 
-    public TravelDocument()
+    public TravelDocument(string itemName, bool isRequired)
     {
-        Name = Name;
-        isRequired = false;
+        this.Name = itemName;
+        this.isRequired = isRequired;
     }
     public string GetInfo()
     {
