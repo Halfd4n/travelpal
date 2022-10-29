@@ -24,16 +24,20 @@ namespace TravelPal
     public partial class MainWindow : Window
     {
         private UserManager userManager = new();
+        private TravelManager travelManager = new();
 
         public MainWindow()
         {
             InitializeComponent();
+
+            PopulateAllTravels();
         }
-        public MainWindow(UserManager userManager)
+        public MainWindow(UserManager userManager, TravelManager travelManager)
         {
             InitializeComponent();
 
             this.userManager = userManager;
+            this.travelManager = travelManager;
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -47,7 +51,7 @@ namespace TravelPal
 
             if (isSignedInUser)
             {
-                TravelsWindow travelsWindow = new(userManager);
+                TravelsWindow travelsWindow = new(userManager, travelManager);
 
                 travelsWindow.Show();
 
@@ -62,7 +66,7 @@ namespace TravelPal
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            RegisterWindow registerWindow = new(userManager);
+            RegisterWindow registerWindow = new(userManager, travelManager);
 
             registerWindow.Show();
 
@@ -77,6 +81,22 @@ namespace TravelPal
         private void lblPasswordWatermark_MouseDown(object sender, MouseButtonEventArgs e)
         {
             lblPasswordWatermark.Visibility = Visibility.Collapsed;
+        }
+
+        private void PopulateAllTravels()
+        {
+            foreach(IUser defaultUser in userManager.AllUsers)
+            {
+                if(defaultUser is User)
+                {
+                    User user = (User)defaultUser;
+
+                    foreach(Travel travel in user.Travels)
+                    {
+                        travelManager.AddTravel(travel);
+                    }
+                }
+            }
         }
     }
 }

@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="Images\add-item.png" />
     <None Remove="Images\add-travel.png" />
+    <None Remove="Images\edit-travel-heading.png" />
     <None Remove="Images\how-to.png" />
     <None Remove="Images\my-details.png" />
     <None Remove="Images\new-user.png" />
@@ -22,6 +23,7 @@
     <None Remove="Images\Suitcase.png" />
     <None Remove="Images\text-logo.png" />
     <None Remove="Images\TextLogo.png" />
+    <None Remove="Images\travel-details-heading.png" />
     <None Remove="Images\travel-pal-logo.png" />
     <None Remove="Images\TravelPalLogo.png" />
     <None Remove="Images\travels.png" />
@@ -32,6 +34,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\add-travel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\edit-travel-heading.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\how-to.png">
@@ -59,6 +64,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\text-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\travel-details-heading.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\travel-pal-logo.png">

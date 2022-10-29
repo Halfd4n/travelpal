@@ -18,11 +18,13 @@ public class TravelManager
     }
     public void AddTravel(Travel newTravel)
     {
-        
+        AllTravels.Add(newTravel);
     }
 
     public void RemoveTravel(Travel travelToRemove)
     {
-        
+        AllTravels.Remove(travelToRemove);
+
+
     }
 }

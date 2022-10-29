@@ -183,6 +183,7 @@
                 Foreground="#FF2E2C2C"
                 Width="380"
                 Margin="10,30,10,0"
+                SelectionChanged="lvTravels_SelectionChanged"
                 >
             </ListView>
         </StackPanel>

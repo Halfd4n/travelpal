@@ -16,8 +16,6 @@ public class UserManager
 
     public UserManager()
     {
-        // Default trip:
-
         OtherItem defautlItem1 = new("Toothbrush", 1);
         OtherItem defautlItem2 = new("Tickets", 2);
         OtherItem defautlItem3 = new("T-Shirt", 3);
@@ -65,6 +63,7 @@ public class UserManager
         Gandalf.Travels.Add(defaultTrip);
         Gandalf.Travels.Add(defaultVacation);
 
+        AllUsers.Add(Gandalf);
         AllUsers.Add(new Admin("admin", "password", Enums.Countries.Sweden));
     }
     public List<IUser> GetAllUsers()
