@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -96,6 +97,15 @@ namespace TravelPal
                         travelManager.AddTravel(travel);
                     }
                 }
+            }
+        }
+
+        // Method to read Enter button on keyboard to be able to click Login button without using mouse.
+        private void pswPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnLogin_Click(sender, e);
             }
         }
     }

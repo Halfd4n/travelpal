@@ -60,6 +60,7 @@
                     HorizontalContentAlignment="Center"
                     BorderThickness="0"
                     Opacity="0.85"
+                    KeyDown="pswPassword_KeyDown"
                     >
                 </PasswordBox>
             </Border>

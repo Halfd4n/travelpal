@@ -65,9 +65,9 @@ namespace TravelPal
 
             try
             {
-                if (newUsername.Length < 5 || newUsername.Length > 12)
+                if (newUsername.Length < 3|| newUsername.Length > 12)
                 {
-                    throw new FormatException("Username must be between 5-12 characters long!");
+                    throw new FormatException("Username must be between 3-12 characters long!");
                 }
                 else if (newPassword != confirmPassword)
                 {

@@ -15,164 +15,159 @@ using TravelPal.Interfaces;
 using TravelPal.Managers;
 using TravelPal.Models;
 
-namespace TravelPal
+namespace TravelPal;
+public partial class TravelsWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for TravelsWindow.xaml
-    /// </summary>
-    public partial class TravelsWindow : Window
+    private UserManager userManager = new();
+    private TravelManager travelManager = new();
+    private Travel selectedTravel;
+
+    public TravelsWindow(UserManager userManager, TravelManager travelManager)
     {
-        private UserManager userManager = new();
-        private TravelManager travelManager = new();
-        private Travel selectedTravel;
+        InitializeComponent();
 
-        public TravelsWindow(UserManager userManager, TravelManager travelManager)
+        this.userManager = userManager;
+        this.travelManager = travelManager;
+
+        lblCurrentUser.Content = $"{userManager.SignedInUser.Username}";
+
+        UpdateUI();
+    }
+
+    // Method to update UI of ListView lvTravels:
+    private void UpdateUI()
+    {
+        lvTravels.Items.Clear();
+        travelManager.AllTravels = travelManager.GetAllTravels();
+
+        if (userManager.SignedInUser is Admin)
         {
-            InitializeComponent();
+            Admin admin = (Admin)userManager.SignedInUser;
 
-            this.userManager = userManager;
-            this.travelManager = travelManager;
-
-            lblCurrentUser.Content = $"{userManager.SignedInUser.Username}";
-
-            UpdateUI();
-        }
-
-        // Method to update UI of ListView lvTravels:
-        private void UpdateUI()
-        {
-            lvTravels.Items.Clear();
-            travelManager.AllTravels = travelManager.GetAllTravels();
-
-            if (userManager.SignedInUser is Admin)
+            foreach (Travel travel in travelManager.AllTravels)
             {
-                Admin admin = (Admin)userManager.SignedInUser;
+                ListViewItem item = new();
 
-                foreach (Travel travel in travelManager.AllTravels)
-                {
-                    ListViewItem item = new();
+                item.Content = travel.GetInfo();
+                item.Tag = travel;
 
-                    item.Content = travel.GetInfo();
-                    item.Tag = travel;
-
-                    lvTravels.Items.Add(item);
-                }
-            }
-            else if(userManager.SignedInUser is User)
-            {
-                User user = (User)userManager.SignedInUser;
-
-                foreach (Travel travel in user.Travels)
-                {
-                    ListViewItem item = new();
-
-                    item.Content = travel.GetInfo();
-                    item.Tag = travel;
-
-                    lvTravels.Items.Add(item);
-                }
+                lvTravels.Items.Add(item);
             }
         }
-
-        // Method to sign out currently logged in user, called upon via click event on btnSignOut:
-        private void btnSignOut_Click(object sender, RoutedEventArgs e)
+        else if(userManager.SignedInUser is User)
         {
-            userManager.SignOutUser();
+            User user = (User)userManager.SignedInUser;
 
-            MainWindow mainWindow = new(userManager, travelManager);
-
-            mainWindow.Show();
-
-            this.Close();
-        }
-
-        // Method to open a window displaying the user details, called upon via click event on btnMyDetails:
-        private void btnMyDetails_Click(object sender, RoutedEventArgs e)
-        {
-            MyDetailsWindow myDetailsWindow = new();
-
-            myDetailsWindow.Show();
-        }
-
-        private void btnAddTravel_Click(object sender, RoutedEventArgs e)
-        {
-            AddTravelWindow addTravelWindow = new(userManager, travelManager);
-
-            addTravelWindow.Show();
-
-            addTravelWindow.Closed += Window_Closed;
-        }
-
-        private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
-        {
-
-            if (selectedTravel == null)
+            foreach (Travel travel in user.Travels)
             {
-                MessageBox.Show("No travel currently selected. Select one and press Remove-button again if you wish to remove a travel from the list.", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                ListViewItem item = new();
+
+                item.Content = travel.GetInfo();
+                item.Tag = travel;
+
+                lvTravels.Items.Add(item);
             }
-            else
-            {
-                MessageBoxResult result = MessageBox.Show($"Are you sure you want to remove your travel to {selectedTravel.Destination}? This action can't be reversed.", "Message", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        }
+    }
 
-                if (result == MessageBoxResult.Yes)
+    // Method to sign out currently logged in user, called upon via click event on btnSignOut:
+    private void btnSignOut_Click(object sender, RoutedEventArgs e)
+    {
+        userManager.SignOutUser();
+
+        MainWindow mainWindow = new(userManager, travelManager);
+
+        mainWindow.Show();
+
+        this.Close();
+    }
+
+    // Method to open a window displaying the user details, called upon via click event on btnMyDetails:
+    private void btnMyDetails_Click(object sender, RoutedEventArgs e)
+    {
+        UserDetailsWindow UserDetailsWindow = new(userManager);
+
+        UserDetailsWindow.Show();
+    }
+
+    private void btnAddTravel_Click(object sender, RoutedEventArgs e)
+    {
+        AddTravelWindow addTravelWindow = new(userManager, travelManager);
+
+        addTravelWindow.Show();
+
+        addTravelWindow.Closed += Window_Closed;
+    }
+
+    private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
+    {
+
+        if (selectedTravel == null)
+        {
+            MessageBox.Show("No travel currently selected. Select one and press Remove-button again if you wish to remove a travel from the list.", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        else
+        {
+            MessageBoxResult result = MessageBox.Show($"Are you sure you want to remove your travel to {selectedTravel.Destination}? This action can't be reversed.", "Message", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                travelManager.RemoveTravel(selectedTravel);
+                
+                foreach (IUser user in userManager.AllUsers)
                 {
-                    travelManager.RemoveTravel(selectedTravel);
-                    
-                    foreach (IUser user in userManager.AllUsers)
+                    if(user is User)
                     {
-                        if(user is User)
-                        {
-                            User userTravel = (User)user;
+                        User userTravel = (User)user;
 
-                            if (userTravel.Travels.Contains(selectedTravel))
-                            {
-                                userTravel.Travels.Remove(selectedTravel);
-                            }
+                        if (userTravel.Travels.Contains(selectedTravel))
+                        {
+                            userTravel.Travels.Remove(selectedTravel);
                         }
                     }
-
-                    UpdateUI();
-                    selectedTravel = null;
-
                 }
+
+                UpdateUI();
+                selectedTravel = null;
+
             }
         }
+    }
 
-        private void btnTravelDetails_Click(object sender, RoutedEventArgs e)
+    private void btnTravelDetails_Click(object sender, RoutedEventArgs e)
+    {
+        if (selectedTravel == null)
         {
-            if (selectedTravel == null)
-            {
-                MessageBox.Show("You haven't selected any travel from the list. Select one and press Details-button again to read details of the travel", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                TravelDetailsWindow travelDetailsWindow = new(userManager, travelManager, selectedTravel);
-
-                travelDetailsWindow.Show();
-
-                travelDetailsWindow.Closed += Window_Closed;
-            }
+            MessageBox.Show("You haven't selected any travel from the list. Select one and press Details-button again to read details of the travel", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
-        private void btnInfoHowTo_Click(object sender, RoutedEventArgs e)
+        else
         {
-            HowToWindow howToWindow = new();
+            TravelDetailsWindow travelDetailsWindow = new(userManager, travelManager, selectedTravel);
 
-            howToWindow.Show();
+            travelDetailsWindow.Show();
+
+            travelDetailsWindow.Closed += Window_Closed;
         }
+    }
 
-        private void lvTravels_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void btnInfoHowTo_Click(object sender, RoutedEventArgs e)
+    {
+        HowToWindow howToWindow = new();
+
+        howToWindow.Show();
+    }
+
+    private void lvTravels_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        ListViewItem selectedItem = (ListViewItem)lvTravels.SelectedItem;
+
+        if (selectedItem is not null)
         {
-            ListViewItem selectedItem = (ListViewItem)lvTravels.SelectedItem;
-
-            if (selectedItem is not null)
-            {
-                selectedTravel = (Travel)selectedItem.Tag;
-            }
+            selectedTravel = (Travel)selectedItem.Tag;
         }
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            UpdateUI();
-        }
+    }
+    private void Window_Closed(object sender, EventArgs e)
+    {
+        UpdateUI();
     }
 }
