@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="MainWindow" Height="530" Width="420" ResizeMode="NoResize">
+        Title="MainWindow" Height="530" Width="420" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="MediumSlateBlue"/>
@@ -14,7 +14,7 @@
     </Window.Background>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/images/travel-pal-logo.png" Opacity="0.85"/>
+            <ImageBrush ImageSource="/images/travel-pal-logo.png" Opacity="0.50" Stretch="None" AlignmentX="Center"/>
         </Grid.Background>
         <StackPanel>
             <Image Source="/images/text-logo.png"
@@ -25,7 +25,7 @@
                 x:Name="txtUsername"
                 Width="300"
                 Margin="10"
-                BorderBrush="DarkGray"
+                BorderBrush="MediumSlateBlue"
                 Background="MintCream"
                 Foreground="#FF2E2C2C"
                 FontFamily="Arial"
@@ -45,7 +45,7 @@
             <Border
                 Width="300"
                 Margin="20"
-                BorderBrush="DarkGray"
+                BorderBrush="MediumSlateBlue"
                 Background="MintCream"
                 BorderThickness="2"
                 Opacity="0.85"
@@ -90,7 +90,7 @@
                     Opacity="0.85"
                     BorderThickness="3"
                     FontSize="14"
-                    BorderBrush="DarkGray"
+                    BorderBrush="MediumSlateBlue"
                     Click="btnLogin_Click"
                     >
                     <Button.Resources>
@@ -111,7 +111,7 @@
                     FontSize="14"
                     Opacity="0.85"
                     BorderThickness="3"
-                    BorderBrush="DarkGray"
+                    BorderBrush="MediumSlateBlue"
                     Click="btnRegister_Click"
                     >
                     <Button.Resources>

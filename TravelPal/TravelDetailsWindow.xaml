@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="Trave lDetails" Height="630" Width="420">
+        Title="Trave lDetails" Height="640" Width="420" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="MediumSlateBlue"/>
@@ -160,7 +160,7 @@
                 Height="30"
                 Background="MintCream"
                 BorderBrush="MediumSlateBlue"
-                BorderThickness="2"
+                BorderThickness="3"
                 Click="btnAddItem_Click"
                 ToolTip="Click to add new item to packing list."
                 Foreground="#FF2E2C2C"
@@ -184,7 +184,7 @@
                 Background="MintCream"
                 BorderBrush="MediumSlateBlue"
                 Foreground="#FF2E2C2C"
-                BorderThickness="2"
+                BorderThickness="3"
                 Click="btnRemoveItem_Click"
                 ToolTip="Click to remove item from packing list."
                 >
@@ -240,7 +240,7 @@
             <Label
                 x:Name="lblTravelLengthText"
                 HorizontalAlignment="Center"
-                Margin="0,10,90,0"
+                Margin="0,10,130,0"
                 FontFamily="Arial"
                 FontSize="16"
                 Content="Travel length:"
@@ -250,11 +250,11 @@
             <Label
                 x:Name="lblTravelLength"
                 HorizontalAlignment="Center"
-                Width="50"
-                Height="20"
+                Width="100"
+                Height="30"
                 Margin="80,-30,0,0"
                 FontFamily="Arial"
-                FontSize="16"
+                FontSize="14"
                 BorderBrush="MediumSlateBlue"
                 VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Center"
@@ -280,9 +280,32 @@
                 Background="MintCream"
                 BorderBrush="MediumSlateBlue"
                 Foreground="#FF2E2C2C"
-                BorderThickness="2"
+                BorderThickness="3"
                 Margin="0,10,130,0"
                 Click="btnEditTravel_Click"
+                >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button
+                x:Name="btnSaveTravel"
+                Content="Save"
+                FontFamily="Arial"
+                FontSize="16"
+                Width="120"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Height="30"
+                Background="MintCream"
+                BorderBrush="MediumSlateBlue"
+                Foreground="#FF2E2C2C"
+                BorderThickness="3"
+                Margin="0,-30,130,0"
+                Click="btnSaveTravel_Click"
+                Visibility="Hidden"
                 >
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -302,7 +325,7 @@
                 Background="MintCream"
                 BorderBrush="MediumSlateBlue"
                 Foreground="#FF2E2C2C"
-                BorderThickness="2"
+                BorderThickness="3"
                 Margin="130,-30,0,0"
                 Click="btnCancel_Click"
                 >

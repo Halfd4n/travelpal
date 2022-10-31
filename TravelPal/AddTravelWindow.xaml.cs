@@ -111,6 +111,17 @@ namespace TravelPal
                 UpdateListView();
             }
         }
+        private void lvTravelItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListViewItem selectedItem = (ListViewItem)lvTravelItems.SelectedItem;
+
+            if (selectedItem != null)
+            {
+                IPackingListItem selectedPackingListItem = (IPackingListItem)selectedItem.Tag;
+
+                packingListItem = selectedPackingListItem;
+            }
+        }
 
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
@@ -204,11 +215,9 @@ namespace TravelPal
 
                         txtTravelerAmount.Clear();
                     }
-
                 }
-
-
             }
+
             catch (FormatException ex)
             {
                 switch (arrayIndex)
@@ -257,19 +266,6 @@ namespace TravelPal
         {
             txtTravelerAmount.Clear();
         }
-
-        private void lvTravelItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ListViewItem selectedItem = (ListViewItem)lvTravelItems.SelectedItem;
-
-            if (selectedItem != null)
-            {
-                IPackingListItem selectedPackingListItem = (IPackingListItem)selectedItem.Tag;
-
-                packingListItem = selectedPackingListItem;
-            }
-        }
-
         private void cbTripOrVacation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

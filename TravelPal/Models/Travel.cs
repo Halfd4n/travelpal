@@ -24,6 +24,7 @@ public class Travel
         Destination = destination;
         Country = country;
         Travelers = travelers;
+        PackingList = packingListItems;
         StartDate = startDate;
         EndDate = endDate;
         TravelDays = travelDays;
@@ -32,5 +33,10 @@ public class Travel
     public virtual string GetInfo()
     {
         return $"{Destination}, {Country}";
+    }
+
+    public List<IPackingListItem> GetPackingList()
+    {
+        return PackingList;
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="TravelsWindow" Height="530" Width="420" ResizeMode="NoResize">
+        Title="TravelsWindow" Height="530" Width="420" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="MediumSlateBlue"/>
@@ -116,12 +116,12 @@
                 ToolTip="Add new travel to list."
                 BorderBrush="MediumSlateBlue"
                 Background="MintCream"
-                BorderThickness="2"
+                BorderThickness="3"
                 Width="100"
                 Height="32"
                 VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Center"
-                Margin="5,0,5,0"
+                Margin="5,0,5,10"
                 Click="btnAddTravel_Click"
                >
                 <Button.Resources>
@@ -138,12 +138,12 @@
                 ToolTip="Remove existing travel from list."
                 BorderBrush="MediumSlateBlue"
                 Background="MintCream"
-                BorderThickness="2"
+                BorderThickness="3"
                 Width="100"
                 Height="32"
                 VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Center"
-                Margin="5,0,5,0"
+                Margin="5,0,5,10"
                 Click="btnRemoveTravel_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -161,10 +161,10 @@
                 Height="32"
                 BorderBrush="MediumSlateBlue"
                 Background="MintCream"
-                BorderThickness="2"
+                BorderThickness="3"
                 VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Center"
-                Margin="5,0,5,0"
+                Margin="5,0,5,10"
                 Click="btnTravelDetails_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -182,7 +182,7 @@
                 BorderThickness="3"
                 Foreground="#FF2E2C2C"
                 Width="380"
-                Margin="10,30,10,0"
+                Margin="10,45,10,0"
                 SelectionChanged="lvTravels_SelectionChanged"
                 >
             </ListView>

@@ -89,7 +89,9 @@ namespace TravelPal
         // Method to open a window displaying the user details, called upon via click event on btnMyDetails:
         private void btnMyDetails_Click(object sender, RoutedEventArgs e)
         {
-            // Öppna nytt fönster som visar detaljer om den inloggade användare
+            MyDetailsWindow myDetailsWindow = new();
+
+            myDetailsWindow.Show();
         }
 
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
@@ -98,12 +100,7 @@ namespace TravelPal
 
             addTravelWindow.Show();
 
-            addTravelWindow.Closed += AddTravelWindow_Closed;
-        }
-
-        private void AddTravelWindow_Closed(object sender, EventArgs e)
-        {
-            UpdateUI();
+            addTravelWindow.Closed += Window_Closed;
         }
 
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
@@ -152,6 +149,8 @@ namespace TravelPal
                 TravelDetailsWindow travelDetailsWindow = new(userManager, travelManager, selectedTravel);
 
                 travelDetailsWindow.Show();
+
+                travelDetailsWindow.Closed += Window_Closed;
             }
         }
 
@@ -166,10 +165,14 @@ namespace TravelPal
         {
             ListViewItem selectedItem = (ListViewItem)lvTravels.SelectedItem;
 
-            if (selectedItem != null)
+            if (selectedItem is not null)
             {
                 selectedTravel = (Travel)selectedItem.Tag;
             }
+        }
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            UpdateUI();
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="AddNewItemWindow" Height="300" Width="250">
+        Title="AddNewItemWindow" Height="300" Width="250" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"> 
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="MediumSlateBlue"/>
@@ -14,7 +14,7 @@
     </Window.Background>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/images/suitcase.png" Opacity="0.65"/>
+            <ImageBrush ImageSource="/images/suitcase.png" Opacity="0.40"/>
         </Grid.Background>
         <StackPanel>
             <Image
@@ -117,7 +117,7 @@
                 Background="MintCream"
                 BorderBrush="MediumSlateBlue"
                 Foreground="#FF2E2C2C"
-                BorderThickness="2"
+                BorderThickness="3"
                 Margin="0,50,100,0"
                 Click="btnAddItem_Click"
                 VerticalAlignment="Center"
@@ -140,7 +140,7 @@
                 Background="MintCream"
                 BorderBrush="MediumSlateBlue"
                 Foreground="#FF2E2C2C"
-                BorderThickness="2"
+                BorderThickness="3"
                 Margin="100,-30,0,0"
                 Click="btnCancel_Click"
                 VerticalAlignment="Center"
