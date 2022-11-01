@@ -71,7 +71,11 @@ public partial class UserDetailsWindow : Window
             currentUser.Username = newUsername;
             currentUser.Password = newPassword;
 
-            Countries newCountryOfOriginEnum = 
+            Countries newCountryOfOriginEnum = (Countries)Enum.Parse(typeof(Countries), newCountryOfOrigin);
+        }
+        catch
+        {
+
         }
     }
 
