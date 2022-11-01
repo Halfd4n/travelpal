@@ -21,6 +21,7 @@ namespace TravelPal;
 public partial class UserDetailsWindow : Window
 {
     private UserManager userManager = new();
+    private User currentUser;
 
 
     public UserDetailsWindow(UserManager userManager)
@@ -28,14 +29,23 @@ public partial class UserDetailsWindow : Window
         InitializeComponent();
         
         this.userManager = userManager;
+        currentUser = (User)userManager.SignedInUser;
 
-        SetDataFields();
+        bool isAdmin = IsUserAdmin();
+
+        if (isAdmin)
+        {
+            btnEditUser.IsEnabled = false;
+        }
+        else if (!isAdmin)
+        {
+            SetDataFields();
+        }
     }
 
     private void txtUsername_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         txtUsername.Clear();
-
     }
 
     // Method to cancel editing user information, called from a click event on Cancel button:
@@ -45,9 +55,7 @@ public partial class UserDetailsWindow : Window
     }
 
     private void btnSaveChanges_Click(object sender, RoutedEventArgs e)
-    {
-        User currentUser = (User)userManager.SignedInUser;
-        
+    {        
         string newUsername = txtUsername.Text;
         string newPassword = pswPassword.Password;
         string newCountryOfOrigin = (string)cbLocations.SelectedItem;
@@ -64,18 +72,45 @@ public partial class UserDetailsWindow : Window
             }
             else if (newPassword != pswConfirmPassword.Password)
             {
-                throw new ArgumentException("The input in password boxes don't match!");
+                throw new Exception("The input in password boxes don't match!");
             }
 
-
-            currentUser.Username = newUsername;
-            currentUser.Password = newPassword;
-
+            lblErrorMessage.Visibility = Visibility.Hidden;
+           
             Countries newCountryOfOriginEnum = (Countries)Enum.Parse(typeof(Countries), newCountryOfOrigin);
-        }
-        catch
-        {
 
+            bool isNewValidUserDetails = userManager.UpdateUser(newUsername);
+
+            if (isNewValidUserDetails)
+            {
+                userManager.SignedInUser.Username = newUsername;
+                userManager.SignedInUser.Password = newPassword;
+                userManager.SignedInUser.Location = newCountryOfOriginEnum;
+
+                MessageBox.Show("Success! Your details where updated.", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            else
+            {
+                lblErrorMessage.Content = $"{newUsername} is not available!";
+                lblErrorMessage.Visibility = Visibility.Visible;
+                txtUsername.Clear();
+            }
+        }
+        catch(FormatException ex)
+        {
+            lblErrorMessage.Content = ex.Message;
+            lblErrorMessage.Visibility = Visibility.Visible;
+        }
+        catch (ArgumentException ex)
+        {
+            lblErrorMessage.Content = ex.Message;
+            lblErrorMessage.Visibility = Visibility.Visible;
+        }
+        catch(Exception ex)
+        {
+            lblErrorMessage.Content = ex.Message;
+            lblErrorMessage.Visibility = Visibility.Visible;
         }
     }
 
@@ -87,7 +122,7 @@ public partial class UserDetailsWindow : Window
         cbLocations.IsEnabled = true;
 
         btnEditUser.Visibility = Visibility.Hidden;
-        btnSaveChanges.Visibility = Visibility.Hidden;
+        btnSaveChanges.Visibility = Visibility.Visible;
     }
 
     private void SetDataFields()
@@ -97,12 +132,20 @@ public partial class UserDetailsWindow : Window
         pswConfirmPassword.IsEnabled = false;
         cbLocations.IsEnabled = false;
 
-        User currentUser = (User)userManager.SignedInUser;
-
         txtUsername.Text = currentUser.Username;
 
         cbLocations.ItemsSource = Enum.GetNames(typeof(Countries));
 
         cbLocations.Text = currentUser.Location.ToString();
+    }
+
+    private bool IsUserAdmin()
+    {
+        if (currentUser is Admin)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

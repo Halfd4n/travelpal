@@ -95,11 +95,24 @@
                 HorizontalContentAlignment="Center"
                 FontFamily="Alrial"
                 FontSize="22"
-                Margin="0,20,0,50"
+                Margin="0,20,0,20"
                 Opacity="0.85"
                 Foreground="#FF2E2C2C"
                 IsReadOnly="True">
             </ComboBox>
+            <Label
+                x:Name="lblErrorMessage"
+                Width="300"
+                FontSize="12"
+                Foreground="#FF860D0D"
+                FontFamily="Arial"
+                FontStyle="Italic"
+                FontWeight="SemiBold"
+                Margin="0,0,0,50"
+                Visibility="Hidden"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                />
             <Button
                 x:Name="btnEditUser"
                 Content="Edit"

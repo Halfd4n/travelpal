@@ -35,7 +35,6 @@ public class UserManager
 
         Trip defaultTrip = new("ESL", Enums.Countries.Poland, 2, defaultPackingList1, defaultStart1, defaultEnd1, travelLength, Enums.TripTypes.Leisure);
 
-        // Default vacation:
         OtherItem defaultItem4 = new("Flipflops", 1);
         OtherItem defaultItem5 = new("Shades", 2);
 
@@ -55,8 +54,6 @@ public class UserManager
         bool allInclusive = true;
 
         Vacation defaultVacation = new("Barcelona", Enums.Countries.Spain, 6, defaultPackingList2, defaultStart2, defaultEnd2, travelLength, allInclusive);
-
-        // Default users:
 
         User Gandalf = new User("Gandalf", "password", Enums.Countries.Sweden);
 
@@ -83,14 +80,15 @@ public class UserManager
         AllUsers.Add(newUser);
         return true;
     }
-
-    //public void RemoveUser(IUser userToRemove)
-    //{
-
-    //}
-
-    public bool UpdateUserName(IUser currentUser, string newUserName)
+    public bool UpdateUser(string newUserName)
     {
+        bool isValidNewUserName = ValidateUserName(newUserName);
+
+        if (!isValidNewUserName)
+        {
+            return false;
+        }
+
         return true;
     }
 

@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="Images\add-item.png" />
     <None Remove="Images\add-travel.png" />
+    <None Remove="Images\calender-background.png" />
     <None Remove="Images\edit-travel-heading.png" />
     <None Remove="Images\how-to.png" />
     <None Remove="Images\my-details.png" />
@@ -35,6 +36,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\add-travel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\calender-background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\edit-travel-heading.png">

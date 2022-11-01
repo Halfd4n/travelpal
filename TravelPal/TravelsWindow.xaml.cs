@@ -29,7 +29,7 @@ public partial class TravelsWindow : Window
         this.userManager = userManager;
         this.travelManager = travelManager;
 
-        lblCurrentUser.Content = $"{userManager.SignedInUser.Username}";
+
 
         UpdateUI();
     }
@@ -39,6 +39,9 @@ public partial class TravelsWindow : Window
     {
         lvTravels.Items.Clear();
         travelManager.AllTravels = travelManager.GetAllTravels();
+
+        lblCurrentUser.Content = "";
+        lblCurrentUser.Content = $"{userManager.SignedInUser.Username}";
 
         if (userManager.SignedInUser is Admin)
         {
@@ -85,9 +88,11 @@ public partial class TravelsWindow : Window
     // Method to open a window displaying the user details, called upon via click event on btnMyDetails:
     private void btnMyDetails_Click(object sender, RoutedEventArgs e)
     {
-        UserDetailsWindow UserDetailsWindow = new(userManager);
+        UserDetailsWindow userDetailsWindow = new(userManager);
 
-        UserDetailsWindow.Show();
+        userDetailsWindow.Show();
+
+        userDetailsWindow.Closed += Window_Closed;
     }
 
     private void btnAddTravel_Click(object sender, RoutedEventArgs e)

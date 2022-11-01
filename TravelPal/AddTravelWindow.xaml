@@ -218,7 +218,6 @@
                 HorizontalAlignment="Left"
                 BorderBrush="MediumSlateBlue"
                 Foreground="#FF2E2C2C"
-                Background="MintCream"
                 BorderThickness="2"
                 Text="Start"
                 >
@@ -232,7 +231,6 @@
                 HorizontalAlignment="Right"
                 BorderBrush="MediumSlateBlue"
                 Foreground="#FF2E2C2C"
-                Background="MintCream"
                 BorderThickness="2"
                 Text="End"
                 >
