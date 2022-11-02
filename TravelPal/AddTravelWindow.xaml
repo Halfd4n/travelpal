@@ -145,7 +145,14 @@
                 SelectionChanged="lvTravelItems_SelectionChanged"
                 Foreground="#FF2E2C2C"
                 ToolTip="View of packing list items."
+                ItemsSource="{Binding Source = itemsInPackingList}"
                 >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding IsRequired}" Width="100"/>
+                    </GridView>
+                </ListView.View>
             </ListView>
             <Button
                 x:Name="btnAddItem"

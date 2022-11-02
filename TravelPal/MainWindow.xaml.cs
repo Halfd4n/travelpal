@@ -17,96 +17,92 @@ using TravelPal.Interfaces;
 using TravelPal.Managers;
 using TravelPal.Models;
 
-namespace TravelPal
+namespace TravelPal;
+
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    private UserManager userManager = new();
+    private TravelManager travelManager = new();
+
+    public MainWindow()
     {
-        private UserManager userManager = new();
-        private TravelManager travelManager = new();
+        InitializeComponent();
 
-        public MainWindow()
+        PopulateAllTravels();
+    }
+    public MainWindow(UserManager userManager, TravelManager travelManager)
+    {
+        InitializeComponent();
+
+        this.userManager = userManager;
+        this.travelManager = travelManager;
+    }
+
+    private void btnLogin_Click(object sender, RoutedEventArgs e)
+    {
+        userManager.AllUsers = userManager.GetAllUsers();
+        
+        string username = txtUsername.Text;
+        string password = pswPassword.Password;
+
+        bool isSignedInUser = userManager.SignInUser(username, password);
+
+        if (isSignedInUser)
         {
-            InitializeComponent();
+            TravelsWindow travelsWindow = new(userManager, travelManager);
 
-            PopulateAllTravels();
-        }
-        public MainWindow(UserManager userManager, TravelManager travelManager)
-        {
-            InitializeComponent();
-
-            this.userManager = userManager;
-            this.travelManager = travelManager;
-        }
-
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            userManager.AllUsers = userManager.GetAllUsers();
-            
-            string username = txtUsername.Text;
-            string password = pswPassword.Password;
-
-            bool isSignedInUser = userManager.SignInUser(username, password);
-
-            if (isSignedInUser)
-            {
-                TravelsWindow travelsWindow = new(userManager, travelManager);
-
-                travelsWindow.Show();
-
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Username or password is incorrect!", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-           
-        }
-
-        private void btnRegister_Click(object sender, RoutedEventArgs e)
-        {
-            RegisterWindow registerWindow = new(userManager, travelManager);
-
-            registerWindow.Show();
+            travelsWindow.Show();
 
             this.Close();
         }
-
-        private void txtUsername_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        else
         {
-            txtUsername.Clear();
+            MessageBox.Show("Username or password is incorrect!", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+       
+    }
 
-        private void lblPasswordWatermark_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            lblPasswordWatermark.Visibility = Visibility.Collapsed;
-        }
+    private void btnRegister_Click(object sender, RoutedEventArgs e)
+    {
+        RegisterWindow registerWindow = new(userManager, travelManager);
 
-        private void PopulateAllTravels()
+        registerWindow.Show();
+
+        this.Close();
+    }
+
+    private void txtUsername_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        txtUsername.Clear();
+    }
+
+    private void lblPasswordWatermark_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        lblPasswordWatermark.Visibility = Visibility.Collapsed;
+    }
+
+    private void PopulateAllTravels()
+    {
+        foreach(IUser defaultUser in userManager.AllUsers)
         {
-            foreach(IUser defaultUser in userManager.AllUsers)
+            if(defaultUser is User)
             {
-                if(defaultUser is User)
-                {
-                    User user = (User)defaultUser;
+                User user = (User)defaultUser;
 
-                    foreach(Travel travel in user.Travels)
-                    {
-                        travelManager.AddTravel(travel);
-                    }
+                foreach(Travel travel in user.Travels)
+                {
+                    travelManager.AddTravel(travel);
                 }
             }
         }
+    }
 
-        // Method to read Enter button on keyboard to be able to click Login button without using mouse.
-        private void pswPassword_KeyDown(object sender, KeyEventArgs e)
+    // Method to read Enter button on keyboard to be able to click Login button without using mouse.
+    private void pswPassword_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter)
         {
-            if (e.Key == Key.Enter)
-            {
-                btnLogin_Click(sender, e);
-            }
+            btnLogin_Click(sender, e);
         }
     }
 }

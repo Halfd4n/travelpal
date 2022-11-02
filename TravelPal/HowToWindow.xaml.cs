@@ -12,21 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace TravelPal
-{
-    /// <summary>
-    /// Interaction logic for HowToWindow.xaml
-    /// </summary>
-    public partial class HowToWindow : Window
-    {
-        public HowToWindow()
-        {
-            InitializeComponent();
-        }
+namespace TravelPal;
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+public partial class HowToWindow : Window
+{
+    public HowToWindow()
+    {
+        InitializeComponent();
+    }
+
+    // Method to close the HowToWindow, called upon via a click on the Take Me There button:
+    private void btnClose_Click(object sender, RoutedEventArgs e)
+    {
+        this.Close();
     }
 }

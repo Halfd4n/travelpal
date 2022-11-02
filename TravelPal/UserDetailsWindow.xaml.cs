@@ -43,17 +43,19 @@ public partial class UserDetailsWindow : Window
         }
     }
 
+    // Method that clears the content of TextBox txtUsername, called upon via a double click on the textbox:
     private void txtUsername_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         txtUsername.Clear();
     }
 
-    // Method to cancel editing user information, called from a click event on Cancel button:
+    // Method to cancel editing user information, called from a click event on the Cancel button:
     private void btnCancel_Click(object sender, RoutedEventArgs e)
     {
         this.Close();
     }
 
+    // Method to save the updated details from the user:
     private void btnSaveChanges_Click(object sender, RoutedEventArgs e)
     {        
         string newUsername = txtUsername.Text;
@@ -114,6 +116,7 @@ public partial class UserDetailsWindow : Window
         }
     }
 
+    // Method to enable data fields, called upon from a click event in the Edit button: 
     private void btnEditUser_Click(object sender, RoutedEventArgs e)
     {
         txtUsername.IsEnabled = true;
@@ -125,6 +128,7 @@ public partial class UserDetailsWindow : Window
         btnSaveChanges.Visibility = Visibility.Visible;
     }
 
+    // Method that fills the data fields with the users data and disableing interaction with the fields.
     private void SetDataFields()
     {
         txtUsername.IsEnabled = false;
@@ -139,6 +143,7 @@ public partial class UserDetailsWindow : Window
         cbLocations.Text = currentUser.Location.ToString();
     }
 
+    // Method that checks if the signed in user is an admin and returns a boolean value:
     private bool IsUserAdmin()
     {
         if (currentUser is Admin)

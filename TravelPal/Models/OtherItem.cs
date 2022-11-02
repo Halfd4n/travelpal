@@ -17,6 +17,8 @@ public class OtherItem : IPackingListItem
         this.Name = name;
         this.Quantity = quantity;
     }
+
+    // Method that returns the name of an OtherItem object:
     public string GetInfo()
     {
         return Name;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ public partial class TravelsWindow : Window
     private UserManager userManager = new();
     private TravelManager travelManager = new();
     private Travel selectedTravel;
+    private List<ListViewItem> travelsInListView = new();
 
     public TravelsWindow(UserManager userManager, TravelManager travelManager)
     {
@@ -37,7 +39,9 @@ public partial class TravelsWindow : Window
     // Method to update UI of ListView lvTravels:
     private void UpdateUI()
     {
-        lvTravels.Items.Clear();
+        lvTravels.ItemsSource = null;
+        travelsInListView.Clear();
+
         travelManager.AllTravels = travelManager.GetAllTravels();
 
         lblCurrentUser.Content = "";
@@ -51,26 +55,28 @@ public partial class TravelsWindow : Window
             {
                 ListViewItem item = new();
 
-                item.Content = travel.GetInfo();
+                item.Content = travel;
                 item.Tag = travel;
 
-                lvTravels.Items.Add(item);
+                travelsInListView.Add(item);
             }
         }
         else if(userManager.SignedInUser is User)
         {
             User user = (User)userManager.SignedInUser;
 
-            foreach (Travel travel in user.Travels)
+            foreach (Travel travel in travelManager.AllTravels)
             {
                 ListViewItem item = new();
 
-                item.Content = travel.GetInfo();
+                item.Content = travel;
                 item.Tag = travel;
 
-                lvTravels.Items.Add(item);
+                travelsInListView.Add(item);
             }
         }
+
+        lvTravels.ItemsSource = travelsInListView;
     }
 
     // Method to sign out currently logged in user, called upon via click event on btnSignOut:
@@ -95,6 +101,7 @@ public partial class TravelsWindow : Window
         userDetailsWindow.Closed += Window_Closed;
     }
 
+    // Method to open AddTravelWindow, called upon by clicking on the Add Travel button:
     private void btnAddTravel_Click(object sender, RoutedEventArgs e)
     {
         AddTravelWindow addTravelWindow = new(userManager, travelManager);
@@ -104,6 +111,7 @@ public partial class TravelsWindow : Window
         addTravelWindow.Closed += Window_Closed;
     }
 
+    // Method to remove a selected Travel object from the list:
     private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
     {
 

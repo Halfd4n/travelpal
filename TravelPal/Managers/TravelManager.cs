@@ -13,20 +13,24 @@ public class TravelManager
 {
     public List<Travel> AllTravels { get; set; } = new();
 
+    // Method that returns AllTravels list:
     public List<Travel> GetAllTravels()
     {
         return AllTravels;
     }
+    // Method that adds a new Travel object to the AllTravels list:
     public void AddTravel(Travel newTravel)
     {
         AllTravels.Add(newTravel);
     }
 
+    // Method that removes an already existing Travel object from the AllTravels list:
     public void RemoveTravel(Travel travelToRemove)
     {
         AllTravels.Remove(travelToRemove);
     }
 
+    // Method that updates and ingoing Travel object and returns a new Travel object:
     public Travel UpdateTravel(Travel travelToUpdate, string destination, Countries country, List<IPackingListItem> packingList,string tripOrVacation, TripTypes tripType, int travelInteger, DateTime startDate, DateTime endDate, int travelDays, bool isAllInclusive)
     {
         bool isTrip = TripOrVacation(tripOrVacation);
@@ -53,6 +57,7 @@ public class TravelManager
         return travelToUpdate;
     }
 
+    // Method to determine if a Travel is a Trip or Vacation object and returning a boolean:
     public bool TripOrVacation(string tripOrVacation)
     {
         if (tripOrVacation.Equals("Trip"))

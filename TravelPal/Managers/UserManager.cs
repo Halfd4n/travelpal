@@ -63,11 +63,14 @@ public class UserManager
         AllUsers.Add(Gandalf);
         AllUsers.Add(new Admin("admin", "password", Enums.Countries.Sweden));
     }
+
+    // Method that returns AllUsers list containing all IUser objects:
     public List<IUser> GetAllUsers()
     {
         return AllUsers;
     }
 
+    // Method that adds a new user to the AllUsers list:
     public bool AddUser(IUser newUser)
     {
         bool isValidUser = ValidateUserName(newUser.Username);
@@ -80,6 +83,8 @@ public class UserManager
         AllUsers.Add(newUser);
         return true;
     }
+
+    // !!! --- MAYBE CHANGE --- !!!
     public bool UpdateUser(string newUserName)
     {
         bool isValidNewUserName = ValidateUserName(newUserName);
@@ -92,6 +97,7 @@ public class UserManager
         return true;
     }
 
+    // Method that checks if a username is already in use:
     private bool ValidateUserName(string username)
     {
         foreach (IUser user in AllUsers)
@@ -104,6 +110,7 @@ public class UserManager
         return true;
     }
 
+    // Method to set the property SignedInUser to the current user loging in:
     public bool SignInUser (string username, string password)
     {
         foreach(IUser user in AllUsers)
@@ -119,6 +126,7 @@ public class UserManager
         return false;
     }
 
+    // Method to sign out that sets SignedInUser back to null.
     public void SignOutUser()
     {
         if (SignedInUser != null)

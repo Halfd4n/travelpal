@@ -184,7 +184,15 @@
                 Width="380"
                 Margin="10,45,10,0"
                 SelectionChanged="lvTravels_SelectionChanged"
+                ItemsSource="{Binding Source = travelsInListView}"
                 >
+                <ListView.View>
+                    <GridView ColumnHeaderToolTip="Travel information">
+                        <GridViewColumn DisplayMemberBinding="{Binding Destination}" Header="Destination" Width="115"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Country}" Header="Country" Width="115"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding TravelDays}" Header="Travel days" Width="115"/>
+                    </GridView>
+                </ListView.View>
             </ListView>
         </StackPanel>
     </Grid>

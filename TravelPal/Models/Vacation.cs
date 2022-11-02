@@ -16,6 +16,8 @@ public class Vacation : Travel
     {
         IsAllInclusive = isAllInclusive;
     }
+
+    // Method to return the base GetInfo method:
     public override string GetInfo()
     {
         return base.GetInfo();

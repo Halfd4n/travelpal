@@ -16,6 +16,7 @@ public class ItemManager
         return AllPackingListItems;
     }
 
+    // Method to add new item to the AllPackingListItems list and returning a boolean:
     public bool AddItem(IPackingListItem newItem)
     {
         bool isValidItem = ValidateItem(newItem.Name);
@@ -29,11 +30,13 @@ public class ItemManager
         return true;
     }
 
+    // Method to remove item from AllPackingListItems list:
     public void RemoveItem(IPackingListItem itemToRemove)
     {
         AllPackingListItems.Remove(itemToRemove);
     }
 
+    // Method to check if the item is already in the list and returning a boolean:
     private bool ValidateItem(string newItem)
     {
         foreach(IPackingListItem item in AllPackingListItems)

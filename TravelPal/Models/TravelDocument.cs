@@ -17,6 +17,8 @@ public class TravelDocument : IPackingListItem
         this.Name = itemName;
         this.isRequired = isRequired;
     }
+
+    // Method that returns the name of a TravelDocument object:
     public string GetInfo()
     {
         return Name;

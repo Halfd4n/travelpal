@@ -30,11 +30,13 @@ public class Travel
         TravelDays = travelDays;
     }
 
+    // Method that returns the Destination and Country of a Travel object:
     public virtual string GetInfo()
     {
         return $"{Destination}, {Country}";
     }
 
+    // Method that returns the PackingList property of a Travel Object:
     public List<IPackingListItem> GetPackingList()
     {
         return PackingList;
