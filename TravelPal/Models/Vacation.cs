@@ -8,7 +8,6 @@ using TravelPal.Enums;
 using TravelPal.Interfaces;
 
 namespace TravelPal.Models;
-
 public class Vacation : Travel
 {
     public bool IsAllInclusive { get; set; }

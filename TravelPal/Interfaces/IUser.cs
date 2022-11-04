@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using TravelPal.Enums;
 
 namespace TravelPal.Interfaces;
-
 public interface IUser
 {
     public string Username { get; set; }

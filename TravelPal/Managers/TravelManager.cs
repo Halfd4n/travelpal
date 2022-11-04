@@ -8,7 +8,6 @@ using TravelPal.Interfaces;
 using TravelPal.Models;
 
 namespace TravelPal.Managers;
-
 public class TravelManager
 {
     public List<Travel> AllTravels { get; set; } = new();
@@ -66,5 +65,20 @@ public class TravelManager
         }
 
         return false;
+    }
+
+    // Method to check that start date of Travel is before end date:
+    public bool IsCorrectTravelDate(DateTime startDate, DateTime endDate)
+    {
+        if (startDate > endDate)
+        {
+            return false;
+        }
+        else if(startDate < DateTime.Today)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

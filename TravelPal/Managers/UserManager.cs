@@ -8,7 +8,6 @@ using TravelPal.Interfaces;
 using TravelPal.Models;
 
 namespace TravelPal.Managers;
-
 public class UserManager
 {
     public List<IUser> AllUsers { get; set; } = new();

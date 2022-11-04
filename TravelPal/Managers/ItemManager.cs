@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using TravelPal.Interfaces;
 
 namespace TravelPal.Managers;
-
 public class ItemManager
 {
     public List<IPackingListItem> AllPackingListItems { get; set; } = new();
@@ -42,6 +41,10 @@ public class ItemManager
         foreach(IPackingListItem item in AllPackingListItems)
         {
             if (item.Name.Equals(newItem))
+            {
+                return false;
+            }
+            else if (item.Name.Equals("Item name"))
             {
                 return false;
             }

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using TravelPal.Interfaces;
 
 namespace TravelPal.Models;
-
 public class OtherItem : IPackingListItem
 {
     public string Name { get; set; }

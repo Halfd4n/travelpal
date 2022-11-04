@@ -23,7 +23,6 @@ public partial class UserDetailsWindow : Window
     private UserManager userManager = new();
     private User currentUser;
 
-
     public UserDetailsWindow(UserManager userManager)
     {
         InitializeComponent();

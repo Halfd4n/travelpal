@@ -8,7 +8,6 @@ using TravelPal.Enums;
 using TravelPal.Interfaces;
 
 namespace TravelPal.Models;
-
 public class Trip : Travel
 { 
     public TripTypes TripType { get; set; }

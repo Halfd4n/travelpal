@@ -16,7 +16,6 @@ using TravelPal.Managers;
 using TravelPal.Models;
 
 namespace TravelPal;
-
 public partial class AddNewItemWindow : Window
 {
     private bool isDocument;

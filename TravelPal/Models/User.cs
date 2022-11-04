@@ -7,7 +7,6 @@ using TravelPal.Enums;
 using TravelPal.Interfaces;
 
 namespace TravelPal.Models;
-
 public class User : IUser
 {
     public string Username { get; set; }

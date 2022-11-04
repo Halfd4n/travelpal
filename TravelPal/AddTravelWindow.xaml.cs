@@ -17,7 +17,6 @@ using TravelPal.Managers;
 using TravelPal.Models;
 
 namespace TravelPal;
-
 public partial class AddTravelWindow : Window
 {
     private UserManager userManager = new();
@@ -75,6 +74,7 @@ public partial class AddTravelWindow : Window
             else if(packingItem is OtherItem)
             {
                 ListViewItem item = new();
+
                 item.Content = packingItem;
                 item.Tag = packingItem;
 
@@ -129,7 +129,7 @@ public partial class AddTravelWindow : Window
         }
     }
 
-    // Method that assings data from the different TextBoxes i. a. and adds a new Travel:
+    // Method that assigns data from the different TextBoxes i. a. and adds a new Travel:
     private void btnAddTravel_Click(object sender, RoutedEventArgs e)
     {
 
@@ -170,21 +170,31 @@ public partial class AddTravelWindow : Window
 
                 if (isInteger)
                 {
+                    
                     DateTime startDate = (DateTime)dpTravelStart.SelectedDate;
 
                     DateTime endDate = (DateTime)dpTravelEnd.SelectedDate;
 
-                    int travelDays = (int)(endDate - startDate).TotalDays;
+                    bool isCorrectDates = travelManager.IsCorrectTravelDate(startDate, endDate);
 
-                    Trip newTrip = new(destination, countryEnum, travelersInteger, itemManager.AllPackingListItems, startDate, endDate, travelDays, tripTypeEnum);
+                    if (isCorrectDates)
+                    {
+                        int travelDays = (int)(endDate - startDate).TotalDays;
 
-                    travelManager.AddTravel(newTrip);
+                        Trip newTrip = new(destination, countryEnum, travelersInteger, itemManager.AllPackingListItems, startDate, endDate, travelDays, tripTypeEnum);
 
-                    currentUser.Travels.Add(newTrip);
+                        travelManager.AddTravel(newTrip);
 
-                    MessageBox.Show("Success! Your next travel was added to your list!", "Message", MessageBoxButton.OK);
+                        currentUser.Travels.Add(newTrip);
 
-                    this.Close();
+                        MessageBox.Show("Success! Your next travel was added to your list!", "Message", MessageBoxButton.OK);
+
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("End date can't be before start date!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 else
                 {
@@ -201,20 +211,33 @@ public partial class AddTravelWindow : Window
                 if (isInteger)
                 {
                     DateTime startDate = (DateTime)dpTravelStart.SelectedDate;
-
+                        
                     DateTime endDate = (DateTime)dpTravelEnd.SelectedDate;
 
-                    int travelDays = (int)(endDate - startDate).TotalDays;
+                    bool isCorrectDates = travelManager.IsCorrectTravelDate(startDate, endDate);
 
-                    Vacation newVacation = new(destination, countryEnum, travelersInteger, itemManager.AllPackingListItems, startDate, endDate, travelDays, isAllInclusive);
+                    if (isCorrectDates)
+                    {
 
-                    travelManager.AddTravel(newVacation);
+                        int travelDays = (int)(endDate - startDate).TotalDays;
 
-                    currentUser.Travels.Add(newVacation);
+                        lblTravelLength.Content = travelDays.ToString();
 
-                    MessageBox.Show("Success! Your next travel was added to your list!", "Message", MessageBoxButton.OK);
+                        Vacation newVacation = new(destination, countryEnum, travelersInteger, itemManager.AllPackingListItems, startDate, endDate, travelDays, isAllInclusive);
 
-                    this.Close();
+                        travelManager.AddTravel(newVacation);
+
+                        currentUser.Travels.Add(newVacation);
+
+                        MessageBox.Show("Success! Your next travel was added to your list!", "Message", MessageBoxButton.OK);
+
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Incorrect dates for your travel, please try again!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
                 }
                 else
                 {
@@ -257,6 +280,8 @@ public partial class AddTravelWindow : Window
             MessageBox.Show($"{ex.Message} Please choose what type of trip your taking!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+
 
     // Method to cancel the addition of a new travel, closing the window and clearing AllPackingListItems list:
     private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -334,7 +359,58 @@ public partial class AddTravelWindow : Window
             bool isUserCountryOfOriginInEurope = Enum.IsDefined(typeof(EuropeanCountries), currentUser.Location.ToString());
             bool isSelectedCountryOfDestinationInEurope = Enum.IsDefined(typeof(EuropeanCountries), cbCountry.SelectedItem);
 
-            if (isUserCountryOfOriginInEurope && !isSelectedCountryOfDestinationInEurope)
+            if (isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
+            {
+                foreach (IPackingListItem item in itemManager.AllPackingListItems)
+                {
+                    if (item.Name.ToLower().Equals("passport"))
+                    {
+                        TravelDocument document = (TravelDocument)item;
+
+                        if (document.IsRequired == true)
+                        {
+                            document.IsRequired = false;
+
+                            UpdateListView();
+                        }
+                    }
+                }
+            }
+            else if(isUserCountryOfOriginInEurope && !isSelectedCountryOfDestinationInEurope)
+            {
+                foreach (IPackingListItem item in itemManager.AllPackingListItems)
+                {
+                    if (item.Name.ToLower().Equals("passport"))
+                    {
+                        TravelDocument document = (TravelDocument)item;
+
+                        if (document.IsRequired == false)
+                        {
+                            document.IsRequired = true;
+
+                            UpdateListView();
+                        }
+                    }
+                }
+            }
+            else if (!isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
+            {
+                foreach (IPackingListItem item in itemManager.AllPackingListItems)
+                {
+                    if (item.Name.ToLower().Equals("passport"))
+                    {
+                        TravelDocument document = (TravelDocument)item;
+
+                        if (document.IsRequired == false)
+                        {
+                            document.IsRequired = true;
+
+                            UpdateListView();
+                        }
+                    }
+                }
+            }
+            else if (isUserCountryOfOriginInEurope && !isSelectedCountryOfDestinationInEurope)
             {
                 TravelDocument passport = new("Passport", true);
 
@@ -347,6 +423,11 @@ public partial class AddTravelWindow : Window
             } 
             else if(!isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
             {
+                if (lvTravelItems.Items.Contains("Passport"))
+                {
+                    lvTravelItems.Items.Remove("Passport");
+                }
+
                 TravelDocument passport = new("Passport", true);
 
                 bool isAddingPassport = itemManager.AddItem(passport);
@@ -355,25 +436,6 @@ public partial class AddTravelWindow : Window
                 {
                     UpdateListView();
                 }
-            }
-            else if (isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
-            {
-                foreach(IPackingListItem item in itemManager.AllPackingListItems)
-                {
-                    if (item.Name.ToLower().Equals("passport"))
-                    {
-                        TravelDocument document = (TravelDocument)item;
-
-                        if (document.isRequired == true)
-                        {
-                            document.isRequired = false;
-
-                            UpdateListView();
-                        }
-                    }
-                }
-                
-
             }
         }
     }

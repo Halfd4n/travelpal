@@ -7,7 +7,6 @@ using TravelPal.Enums;
 using TravelPal.Interfaces;
 
 namespace TravelPal.Models;
-
 public class Travel
 {
     public string Destination { get; set; }

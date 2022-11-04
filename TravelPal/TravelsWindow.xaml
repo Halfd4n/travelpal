@@ -186,11 +186,34 @@
                 SelectionChanged="lvTravels_SelectionChanged"
                 ItemsSource="{Binding Source = travelsInListView}"
                 >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView ColumnHeaderToolTip="Travel information">
-                        <GridViewColumn DisplayMemberBinding="{Binding Destination}" Header="Destination" Width="115"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Country}" Header="Country" Width="115"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding TravelDays}" Header="Travel days" Width="115"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Destination}" Header="Destination" Width="115">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="Auto" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Country}" Header="Country" Width="115">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="Auto" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding TravelDays}" Header="Travel days" Width="115">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="Auto"  TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>

@@ -135,28 +135,59 @@
             </TextBox>
             <ListView
                 x:Name="lvTravelItems"
-                Width="200"
+                Width="280"
                 Height="150"
                 FontFamily="Arial"
                 HorizontalAlignment="Left"
-                Margin="40,0,0,0"
+                Margin="15,0,0,0"
                 BorderBrush="MediumSlateBlue"
                 Background="MintCream"
                 BorderThickness="2"
                 SelectionChanged="lvTravelItems_SelectionChanged"
                 Foreground="#FF2E2C2C"
                 ToolTip="View of packing list items."
+                ItemsSource="{Binding Source = itemPackingList}"
                 >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Item" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="Auto" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding IsRequired}" Header="Required" Width="70">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="Auto" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Quantity}" Header="Quantity" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="Auto" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
             </ListView>
             <Button
                 x:Name="btnAddItem"
-                Content="Add Item"
+                Content="Add"
                 FontFamily="Arial"
                 FontSize="16"
-                Width="120"
+                Width="90"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
-                Margin="220,-230,0,0"
+                Margin="285,-230,0,0"
                 Height="30"
                 Background="MintCream"
                 BorderBrush="MediumSlateBlue"
@@ -173,13 +204,13 @@
             </Button>
             <Button
                 x:Name="btnRemoveItem"
-                Content="Remove Item"
+                Content="Remove"
                 FontFamily="Arial"
                 FontSize="16"
-                Width="120"
+                Width="90"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
-                Margin="220,-155,0,0"
+                Margin="285,-155,0,0"
                 Height="30"
                 Background="MintCream"
                 BorderBrush="MediumSlateBlue"

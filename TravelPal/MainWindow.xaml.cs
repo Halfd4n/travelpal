@@ -18,7 +18,6 @@ using TravelPal.Managers;
 using TravelPal.Models;
 
 namespace TravelPal;
-
 public partial class MainWindow : Window
 {
     private UserManager userManager = new();
@@ -38,6 +37,7 @@ public partial class MainWindow : Window
         this.travelManager = travelManager;
     }
 
+    // Method to log in user based on credentials, called via a click event on the Login button:
     private void btnLogin_Click(object sender, RoutedEventArgs e)
     {
         userManager.AllUsers = userManager.GetAllUsers();
@@ -62,6 +62,7 @@ public partial class MainWindow : Window
        
     }
 
+    // Method to open RegisterWindow, called via click on the Register button:
     private void btnRegister_Click(object sender, RoutedEventArgs e)
     {
         RegisterWindow registerWindow = new(userManager, travelManager);
@@ -71,16 +72,19 @@ public partial class MainWindow : Window
         this.Close();
     }
 
+    // Method to clear the txtUsername TextBox, called via a double click action on the textbox:
     private void txtUsername_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         txtUsername.Clear();
     }
 
+    // Method to clear the lvlPasswordWatermark Label, called via a click action on the label:
     private void lblPasswordWatermark_MouseDown(object sender, MouseButtonEventArgs e)
     {
         lblPasswordWatermark.Visibility = Visibility.Collapsed;
     }
 
+    // Method to populate the default Travel objects into the AllTravels list:
     private void PopulateAllTravels()
     {
         foreach(IUser defaultUser in userManager.AllUsers)

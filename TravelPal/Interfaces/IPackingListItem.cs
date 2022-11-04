@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TravelPal.Interfaces;
-
 public interface IPackingListItem
 { 
     public string Name { get; set; }

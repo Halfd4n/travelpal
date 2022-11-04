@@ -31,8 +31,6 @@ public partial class TravelsWindow : Window
         this.userManager = userManager;
         this.travelManager = travelManager;
 
-
-
         UpdateUI();
     }
 
@@ -65,7 +63,7 @@ public partial class TravelsWindow : Window
         {
             User user = (User)userManager.SignedInUser;
 
-            foreach (Travel travel in travelManager.AllTravels)
+            foreach (Travel travel in user.Travels)
             {
                 ListViewItem item = new();
 
@@ -147,6 +145,7 @@ public partial class TravelsWindow : Window
         }
     }
 
+    // Method to open TravelDetailsWindow, called via click action on the Travel Details button:
     private void btnTravelDetails_Click(object sender, RoutedEventArgs e)
     {
         if (selectedTravel == null)
@@ -163,6 +162,7 @@ public partial class TravelsWindow : Window
         }
     }
 
+    // Method to open the HowToWindow, called via click action on the How To button:
     private void btnInfoHowTo_Click(object sender, RoutedEventArgs e)
     {
         HowToWindow howToWindow = new();
@@ -170,6 +170,7 @@ public partial class TravelsWindow : Window
         howToWindow.Show();
     }
 
+    // Method to notice selection changes in the lvTravels ListView:
     private void lvTravels_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         ListViewItem selectedItem = (ListViewItem)lvTravels.SelectedItem;
@@ -179,6 +180,8 @@ public partial class TravelsWindow : Window
             selectedTravel = (Travel)selectedItem.Tag;
         }
     }
+
+    // Method to update the UI, activated when closing a window leading out from the TravelsWindow:
     private void Window_Closed(object sender, EventArgs e)
     {
         UpdateUI();

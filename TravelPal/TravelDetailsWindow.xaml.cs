@@ -27,6 +27,7 @@ public partial class TravelDetailsWindow : Window
     private bool isAllInclusive;
     private int arrayIndex;
     private TripTypes tripTypesEnum;
+    private List<ListViewItem> itemsInPackingList = new();
 
     public TravelDetailsWindow(UserManager userManager, TravelManager travelManager, Travel selectedTravel)
     {
@@ -43,6 +44,7 @@ public partial class TravelDetailsWindow : Window
         SetDataFields(countries, tripTypes, tripOrVacation);
     }
 
+    // Method to set content of data fields to the values of variable in the selected Travel:
     private void SetDataFields(string[] countries, string[] tripTypes, string[] tripOrVacation)
     {
         txtDestination.Text = selectedTravel.Destination;
@@ -51,9 +53,9 @@ public partial class TravelDetailsWindow : Window
         cbTripType.ItemsSource = tripTypes;
         txtTravelerAmount.Text = selectedTravel.Travelers.ToString();
 
-        int defaultIndex = FindDefaultCountry(countries);
+        int defaultCountryIndex = FindDefaultCountry(countries);
 
-        cbCountry.SelectedIndex = defaultIndex;
+        cbCountry.SelectedIndex = defaultCountryIndex;
 
         bool isTrip = TripOrVacation(selectedTravel);
 
@@ -107,6 +109,8 @@ public partial class TravelDetailsWindow : Window
 
         LockDataFields();
     }
+
+    // Method to initially lock the data fields of the window:
     private void LockDataFields()
     {
         txtDestination.IsEnabled = false;
@@ -121,21 +125,23 @@ public partial class TravelDetailsWindow : Window
         dpTravelEnd.IsEnabled = false;
     }
 
+    // Method to find the index of the Country of the selected travel:
     private int FindDefaultCountry(string[] countries)
     {
-        int defaultIndex = 0;
+        int defaultCountryIndex = 0;
 
         for (int i = 0; i < countries.Length; i++)
         {
             if (selectedTravel.Country.ToString() == countries[i])
             {
-                return defaultIndex = i;
+                return defaultCountryIndex = i;
             }
         }
 
         return -1;
     }
 
+    // Method to check if the Travel object selectedTravel is a trip or not:
     private bool TripOrVacation(Travel selectedTravel)
     {
         if (selectedTravel is Trip)
@@ -145,6 +151,8 @@ public partial class TravelDetailsWindow : Window
 
         return false;
     }
+
+    // Method that checks inf the selectedTrip is a leisure trip or not:
     private bool LeisureOrOccupational(Trip selectedTrip)
     {
         if (selectedTrip.TripType == TripTypes.Leisure)
@@ -155,6 +163,7 @@ public partial class TravelDetailsWindow : Window
         return false;
     }
 
+    // Method to unlock data field to allow for editing the selected Travel, called via click action on the Edit Travel button:
     private void btnEditTravel_Click(object sender, RoutedEventArgs e)
     {
         txtDestination.IsEnabled = true;
@@ -172,11 +181,13 @@ public partial class TravelDetailsWindow : Window
         btnSaveTravel.Visibility = Visibility.Visible;
     }
 
+    // Method to cancel the edit action and in doing so closing the TravelDetailsWindow:
     private void btnCancel_Click(object sender, RoutedEventArgs e)
     {
         this.Close();
     }
 
+    // Method to remove item from the packing list:
     private void btnRemoveItem_Click(object sender, RoutedEventArgs e)
     {
         if (packingListItem == null)
@@ -193,6 +204,7 @@ public partial class TravelDetailsWindow : Window
         }
     }
 
+    // Method to open the AddNewItemWindow, allowing for adding items to the packing list: 
     private void btnAddItem_Click(object sender, RoutedEventArgs e)
     {
         AddNewItemWindow addNewItemWindow = new(itemManager);
@@ -202,11 +214,13 @@ public partial class TravelDetailsWindow : Window
         addNewItemWindow.Closed += AddNewItemWindow_Closed;
     }
 
+    // Method to update the lvTravelItems ListView upon closing of the AddNewItemWindow: 
     private void AddNewItemWindow_Closed(object? sender, EventArgs e)
     {
         UpdateListView();
     }
 
+    // Method to notice changes in selection in the lvTravelItems ListView:
     private void lvTravelItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         ListViewItem selectedItem = (ListViewItem)lvTravelItems.SelectedItem;
@@ -218,16 +232,19 @@ public partial class TravelDetailsWindow : Window
         }
     }
 
+    // Method to clear the content of txtTravelerAmount TextBox via a double click action on the textbox:
     private void txtTravelerAmount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         txtTravelerAmount.Clear();
     }
 
+    // Method to notice changes in selection in the cbTripType ComboBox:
     private void cbTripType_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         string selectedItem = (string)cbTripType.SelectedItem;
     }
 
+    // Method to notice changes in selection in the cbTripOrVacation ComboBox:
     private void cbTripOrVacation_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         string selectedItem = (string)cbTripOrVacation.SelectedItem;
@@ -245,6 +262,8 @@ public partial class TravelDetailsWindow : Window
             xbAllInclusive.Visibility = Visibility.Visible;
         }
     }
+
+    // Method to check the selected item is a Trip or not:
     private bool CheckIfTripOrVacation(string selectedItem)
     {
         if (selectedItem.Equals("Trip"))
@@ -254,225 +273,290 @@ public partial class TravelDetailsWindow : Window
 
         return false;
     }
+
+    // Method to notice changes in selection in the cbCountry ComboBox:
     private void cbCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (cbCountry.SelectedItem is not null && userManager.SignedInUser is not null)
         {
             bool isUserCountryOfOriginInEurope = Enum.IsDefined(typeof(EuropeanCountries), userManager.SignedInUser.Location.ToString());
             bool isSelectedCountryOfDestinationInEurope = Enum.IsDefined(typeof(EuropeanCountries), cbCountry.SelectedItem);
+            
 
-            if (isUserCountryOfOriginInEurope && !isSelectedCountryOfDestinationInEurope)
+            if (lvTravelItems.Items.Equals("Passport"))
             {
-                TravelDocument passport = new("Passport", true);
-
-                bool isAddingPassport = itemManager.AddItem(passport);
-
-                if (isAddingPassport)
+                if (isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
                 {
-                    UpdateListView();
-                }
-            }
-            else if (!isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
-            {
-                TravelDocument passport = new("Passport", true);
-
-                bool isAddingPassport = itemManager.AddItem(passport);
-
-                if (isAddingPassport)
-                {
-                    UpdateListView();
-                }
-            }
-            else if (isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
-            {
-                foreach (IPackingListItem item in itemManager.AllPackingListItems)
-                {
-                    if (item.Name.ToLower().Equals("passport"))
+                    foreach (IPackingListItem item in itemManager.AllPackingListItems)
                     {
-                        TravelDocument document = (TravelDocument)item;
-
-                        if (document.isRequired == true)
+                        if (item.Name.ToLower().Equals("passport"))
                         {
-                            document.isRequired = false;
+                            TravelDocument document = (TravelDocument)item;
 
-                            UpdateListView();
+                            if (document.IsRequired == true)
+                            {
+                                document.IsRequired = false;
+
+                                UpdateListView();
+                            }
+                        }
+                    }
+                }
+                else if (!isUserCountryOfOriginInEurope && isUserCountryOfOriginInEurope)
+                {
+                    foreach (IPackingListItem item in itemManager.AllPackingListItems)
+                    {
+                        if (item.Name.ToLower().Equals("passport"))
+                        {
+                            TravelDocument document = (TravelDocument)item;
+
+                            if (document.IsRequired == false)
+                            {
+                                document.IsRequired = true;
+
+                                UpdateListView();
+                            }
+                        }
+                    }
+                }
+                else if (isUserCountryOfOriginInEurope && !isUserCountryOfOriginInEurope)
+                {
+                    foreach (IPackingListItem item in itemManager.AllPackingListItems)
+                    {
+                        if (item.Name.ToLower().Equals("passport"))
+                        {
+                            TravelDocument document = (TravelDocument)item;
+
+                            if (document.IsRequired == false)
+                            {
+                                document.IsRequired = true;
+
+                                UpdateListView();
+                            }
                         }
                     }
                 }
             }
+            
+            else if (!lvTravelItems.Items.Equals("Passport"))
+            {
+
+                if (isUserCountryOfOriginInEurope && !isSelectedCountryOfDestinationInEurope)
+                {
+                    TravelDocument passport = new("Passport", true);
+
+                    bool isAddingPassport = itemManager.AddItem(passport);
+
+                    if (isAddingPassport)
+                    {
+                        UpdateListView();
+
+                    }
+                }
+                else if (!isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
+                {
+                    TravelDocument passport = new("Passport", true);
+
+                    bool isAddingPassport = itemManager.AddItem(passport);
+
+                    if (isAddingPassport)
+                    {
+                        UpdateListView();
+
+                    }
+                }
+            }
         }
     }
 
-    private void txtDestination_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        txtDestination.Clear();
-    }
-
-    private void xbAllInclusive_Checked(object sender, RoutedEventArgs e)
-    {
-        isAllInclusive = true;
-    }
-
-    private void xbAllInclusive_Unchecked(object sender, RoutedEventArgs e)
-    {
-        isAllInclusive = false;
-    }
-    private void btnSaveTravel_Click(object sender, RoutedEventArgs e)
-    {
-        string destination = txtDestination.Text;
-        string country = (string)cbCountry.SelectedItem;
-        string tripOrVacation = (string)cbTripOrVacation.SelectedItem;
-        string tripType = (string)cbTripType.SelectedItem;
-        bool isAllInclusive = (bool)xbAllInclusive.IsChecked;
-        string noOfTravelers = txtTravelerAmount.Text;
-
-        string[] textInputsToTry = new string[4] { destination, country, tripOrVacation, noOfTravelers };
-        arrayIndex = 0;
-
-        try
+        // Method to clear the content of txtDestination TextBox via a double click action on the textbox:
+        private void txtDestination_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            foreach (string input in textInputsToTry)
+            txtDestination.Clear();
+        }
+
+        // Method to check if the xbAllInclusive CheckBox is checked:
+        private void xbAllInclusive_Checked(object sender, RoutedEventArgs e)
+        {
+            isAllInclusive = true;
+        }
+
+        // Method to check if the xbAllInclusive CheckBox is unchecked:
+        private void xbAllInclusive_Unchecked(object sender, RoutedEventArgs e)
+        {
+            isAllInclusive = false;
+        }
+
+        // Method to save all the changes made to the Travel:
+        private void btnSaveTravel_Click(object sender, RoutedEventArgs e)
+        {
+            string destination = txtDestination.Text;
+            string country = (string)cbCountry.SelectedItem;
+            string tripOrVacation = (string)cbTripOrVacation.SelectedItem;
+            string tripType = (string)cbTripType.SelectedItem;
+            bool isAllInclusive = (bool)xbAllInclusive.IsChecked;
+            string noOfTravelers = txtTravelerAmount.Text;
+
+            string[] textInputsToTry = new string[4] { destination, country, tripOrVacation, noOfTravelers };
+            arrayIndex = 0;
+
+            try
             {
-                if (String.IsNullOrEmpty(input))
+                foreach (string input in textInputsToTry)
                 {
-                    throw new FormatException("The form wasn't filled in correctly.");
+                    if (String.IsNullOrEmpty(input))
+                    {
+                        throw new FormatException("The form wasn't filled in correctly.");
+                    }
+
+                    arrayIndex++;
                 }
 
-                arrayIndex++;
-            }
+                Countries countryEnum = (Countries)Enum.Parse(typeof(Countries), country);
 
-            Countries countryEnum = (Countries)Enum.Parse(typeof(Countries), country);
-
-            if (tripOrVacation == "Trip")
-            {
-                if (String.IsNullOrEmpty(tripType))
+                if (tripOrVacation == "Trip")
                 {
-                    throw new Exception("The form wasn't filled in correctly.");
+                    if (String.IsNullOrEmpty(tripType))
+                    {
+                        throw new Exception("The form wasn't filled in correctly.");
+                    }
+
+                    tripTypesEnum = (TripTypes)Enum.Parse(typeof(TripTypes), tripType);
+
                 }
 
-                tripTypesEnum = (TripTypes)Enum.Parse(typeof(TripTypes), tripType);
+                AddNewItemsToPackList();
 
-            }
+                bool isInteger = int.TryParse(noOfTravelers, out int travelersInteger);
 
-            AddNewItemsToPackList();
+                if (isInteger)
+                {
+                    DateTime startDate = (DateTime)dpTravelStart.SelectedDate;
 
-            bool isInteger = int.TryParse(noOfTravelers, out int travelersInteger);
+                    DateTime endDate = (DateTime)dpTravelEnd.SelectedDate;
 
-            if (isInteger)
-            {
+                    bool isCorrectDates = travelManager.IsCorrectTravelDate(startDate, endDate);
 
-
-                DateTime startDate = (DateTime)dpTravelStart.SelectedDate;
-
-                DateTime endDate = (DateTime)dpTravelEnd.SelectedDate;
-
-                int travelDays = (int)(endDate - startDate).TotalDays;
-
-
-                Travel updatedTravel = travelManager.UpdateTravel(selectedTravel, destination, countryEnum, selectedTravel.PackingList, tripOrVacation, tripTypesEnum, travelersInteger, startDate, endDate, travelDays, isAllInclusive);
-
-                MessageBox.Show("Success! Your travel was updated!", "Message", MessageBoxButton.OK);
-
-                User currentUser = (User)userManager.SignedInUser;
-
-                currentUser.Travels.Add(updatedTravel);
-                currentUser.Travels.Remove(selectedTravel);
-
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Number of travelers wasn't given in an integer! Please try again", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                txtTravelerAmount.Clear();
-            }
-        }
-        catch (FormatException ex)
-        {
-            switch (arrayIndex)
-            {
-                case 0:
+                    if (isCorrectDates)
                     {
-                        MessageBox.Show($"{ex.Message} Please input a destination.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
+                        int travelDays = (int)(endDate - startDate).TotalDays;
+
+                        Travel updatedTravel = travelManager.UpdateTravel(selectedTravel, destination, countryEnum, selectedTravel.PackingList, tripOrVacation, tripTypesEnum, travelersInteger, startDate, endDate, travelDays, isAllInclusive);
+
+                        MessageBox.Show("Success! Your travel was updated!", "Message", MessageBoxButton.OK);
+
+                        User currentUser = (User)userManager.SignedInUser;
+
+                        currentUser.Travels.Add(updatedTravel);
+                        currentUser.Travels.Remove(selectedTravel);
+
+                        this.Close();
                     }
-                case 1:
+                    else
                     {
-                        MessageBox.Show($"{ex.Message} Please pick a country.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
+                        MessageBox.Show("Incorrect dates for your travel, please try again!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                case 2:
-                    {
-                        MessageBox.Show($"{ex.Message} Please choose if you're going on a trip or vacation.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                case 3:
-                    {
-                        MessageBox.Show($"{ex.Message} Please input number of travelers", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
+                }
+                else
+                {
+                    MessageBox.Show("Number of travelers wasn't given in an integer! Please try again", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    txtTravelerAmount.Clear();
+                }
             }
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"{ex.Message} Please choose what type of trip your taking!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    private void AddNewItemsToPackList()
-    {
-        foreach (IPackingListItem newPackingItem in itemManager.AllPackingListItems)
-        {
-            selectedTravel.PackingList.Add(newPackingItem);
-        }
-    }
-
-    private void UpdateListView()
-    {
-        lvTravelItems.Items.Clear();
-
-        itemManager.AllPackingListItems = itemManager.GetAllPackingListItems();
-
-        foreach (IPackingListItem currentTravelPackingItem in selectedTravel.PackingList)
-        {
-            if (currentTravelPackingItem is TravelDocument)
+            catch (FormatException ex)
             {
-                ListViewItem item = new();
-
-                item.Content = currentTravelPackingItem.GetInfo();
-                item.Tag = currentTravelPackingItem;
-
-                lvTravelItems.Items.Add(item);
+                switch (arrayIndex)
+                {
+                    case 0:
+                        {
+                            MessageBox.Show($"{ex.Message} Please input a destination.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    case 1:
+                        {
+                            MessageBox.Show($"{ex.Message} Please pick a country.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    case 2:
+                        {
+                            MessageBox.Show($"{ex.Message} Please choose if you're going on a trip or vacation.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    case 3:
+                        {
+                            MessageBox.Show($"{ex.Message} Please input number of travelers", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                }
             }
-            else if (currentTravelPackingItem is OtherItem)
+            catch (Exception ex)
             {
-                ListViewItem item = new();
-                item.Content = currentTravelPackingItem.GetInfo();
-                item.Tag = currentTravelPackingItem;
-
-                lvTravelItems.Items.Add(item);
+                MessageBox.Show($"{ex.Message} Please choose what type of trip your taking!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        foreach (IPackingListItem packingListItem in itemManager.AllPackingListItems)
+        // Method to add new items to packing list:
+        private void AddNewItemsToPackList()
         {
-            if (packingListItem is TravelDocument)
+            foreach (IPackingListItem newPackingItem in itemManager.AllPackingListItems)
             {
-                ListViewItem item = new();
-
-                item.Content = packingListItem.GetInfo();
-                item.Tag = packingListItem;
-
-                lvTravelItems.Items.Add(item);
-            }
-            else if (packingListItem is OtherItem)
-            {
-                ListViewItem item = new();
-                item.Content = packingListItem.GetInfo();
-                item.Tag = packingListItem;
-
-                lvTravelItems.Items.Add(item);
+                selectedTravel.PackingList.Add(newPackingItem);
             }
         }
-    }
+
+        // Method to update lvTravelItems ListView:
+        private void UpdateListView()
+        {
+            lvTravelItems.ItemsSource = null;
+            itemsInPackingList.Clear();
+
+            itemManager.AllPackingListItems = itemManager.GetAllPackingListItems();
+
+            foreach (IPackingListItem currentTravelPackingItem in selectedTravel.PackingList)
+            {
+                if (currentTravelPackingItem is TravelDocument)
+                {
+                    ListViewItem item = new();
+
+                    item.Content = currentTravelPackingItem;
+                    item.Tag = currentTravelPackingItem;
+
+                    itemsInPackingList.Add(item);
+                }
+                else if (currentTravelPackingItem is OtherItem)
+                {
+                    ListViewItem item = new();
+
+                    item.Content = currentTravelPackingItem;
+                    item.Tag = currentTravelPackingItem;
+
+                    itemsInPackingList.Add(item);
+                }
+            }
+
+            foreach (IPackingListItem packingListItem in itemManager.AllPackingListItems)
+            {
+                if (packingListItem is TravelDocument)
+                {
+                    ListViewItem item = new();
+
+                    item.Content = packingListItem;
+                    item.Tag = packingListItem;
+
+                    itemsInPackingList.Add(item);
+                }
+                else if (packingListItem is OtherItem)
+                {
+                    ListViewItem item = new();
+
+                    item.Content = packingListItem;
+                    item.Tag = packingListItem;
+
+                    itemsInPackingList.Add(item);
+                }
+            }
+
+            lvTravelItems.ItemsSource = itemsInPackingList;
+        }
 }
