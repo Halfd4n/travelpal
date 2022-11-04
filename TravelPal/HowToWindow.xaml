@@ -23,7 +23,7 @@
                 TextWrapping="Wrap"
                 Text="   Well thats the question isn't it?
                 
-                Excactly how does one TravelPal?"
+                Exactly how does one TravelPal?"
                 HorizontalAlignment="Center"
                 >
             </TextBlock>
@@ -71,7 +71,7 @@
                 BorderBrush="MediumSlateBlue"
                 BorderThickness="3"
                 Click="btnClose_Click"
-                ToolTip="Return to your list of travels."
+                ToolTip="Lets go on an adventure!"
                 >
                 <Button.Resources>
                     <Style TargetType="Border">

@@ -59,7 +59,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Foreground="#FF2E2C2C"
-                ToolTip="Current user."
+                ToolTip="Currently signed in user."
                 />
             <Button
                 x:Name="btnMyDetails"
@@ -69,6 +69,7 @@
                 Background="MintCream"
                 BorderBrush="MediumSlateBlue"
                 BorderThickness="2"
+                ToolTip="Click here to view your details."
                 >
                 <Image
                     Source="/images/my-details.png"
@@ -89,6 +90,7 @@
                 BorderBrush="MediumSlateBlue"
                 BorderThickness="2"
                 Click="btnSignOut_Click"
+                ToolTip="Click here to sign out."
                 >
                 <Image
                     Source="/images/sign-out.png"
@@ -113,7 +115,6 @@
                 Content="Add Travel"
                 FontFamily="Arial"
                 Foreground="#FF2E2C2C"
-                ToolTip="Add new travel to list."
                 BorderBrush="MediumSlateBlue"
                 Background="MintCream"
                 BorderThickness="3"
@@ -123,6 +124,7 @@
                 HorizontalContentAlignment="Center"
                 Margin="5,0,5,10"
                 Click="btnAddTravel_Click"
+                ToolTip="Click here to add new travels."
                >
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -144,7 +146,9 @@
                 VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Center"
                 Margin="5,0,5,10"
-                Click="btnRemoveTravel_Click">
+                Click="btnRemoveTravel_Click"
+                >
+                
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -165,7 +169,8 @@
                 VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Center"
                 Margin="5,0,5,10"
-                Click="btnTravelDetails_Click">
+                Click="btnTravelDetails_Click"
+                >
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -185,6 +190,7 @@
                 Margin="10,45,10,0"
                 SelectionChanged="lvTravels_SelectionChanged"
                 ItemsSource="{Binding Source = travelsInListView}"
+                ToolTip="Your list of travels."
                 >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">

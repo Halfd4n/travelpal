@@ -37,7 +37,7 @@
                 TextAlignment="Center"
                 Foreground="#FF2E2C2C"
                 MouseDoubleClick="txtUsername_MouseDoubleClick"
-                ToolTip=""
+                ToolTip="Fill in desired user name (3-12 character)"
                 >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -63,6 +63,7 @@
                     HorizontalContentAlignment="Center"
                     BorderThickness="0"
                     Opacity="0.85"
+                    ToolTip="Fill in desired password (min. 5 characters)"
                     >
                 </PasswordBox>
             </Border>
@@ -84,6 +85,7 @@
                     HorizontalContentAlignment="Center"
                     BorderThickness="0"
                     Opacity="0.85"
+                    ToolTip="Repeat password"
                     >
                 </PasswordBox>
             </Border>
@@ -98,7 +100,10 @@
                 Margin="0,20,0,20"
                 Opacity="0.85"
                 Foreground="#FF2E2C2C"
-                IsReadOnly="True">
+                IsReadOnly="True"
+                ToolTip="Pick your country of origin"
+                >
+                
             </ComboBox>
             <Label
                 x:Name="lblErrorMessage"
@@ -128,6 +133,7 @@
                 BorderThickness="3"
                 Margin="0,10,130,0"
                 Click="btnEditUser_Click"
+                ToolTip="Click here to edit your details."
                 >
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -151,6 +157,7 @@
                 Margin="0,-30,130,0"
                 Click="btnSaveChanges_Click"
                 Visibility="Hidden"
+                ToolTip="Click here to save your new details."
                 >
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -173,6 +180,7 @@
                 BorderThickness="3"
                 Margin="130,-30,0,0"
                 Click="btnCancel_Click"
+                ToolTip="Click here to cancel editing your details."
                 >
                 <Button.Resources>
                     <Style TargetType="Border">

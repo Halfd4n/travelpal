@@ -34,6 +34,7 @@
                 BorderBrush="MediumSlateBlue"
                 MouseDoubleClick="txtNewItem_MouseDoubleClick"
                 VerticalContentAlignment="Center"
+                ToolTip="Fill in the name of the item."
                 >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -98,6 +99,7 @@
                 BorderBrush="MediumSlateBlue"
                 Visibility="Visible"
                 MouseDoubleClick="txtQuantity_MouseDoubleClick"
+                ToolTip="Fill in the quantity of the item"
                 >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -121,6 +123,7 @@
                 Margin="0,50,100,0"
                 Click="btnAddItem_Click"
                 VerticalAlignment="Center"
+                ToolTip="Click here to add new item to packing list."
                 >
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -144,6 +147,7 @@
                 Margin="100,-30,0,0"
                 Click="btnCancel_Click"
                 VerticalAlignment="Center"
+                ToolTip="Click here to cancel adding a new item to packing list."
                 >
                 <Button.Resources>
                     <Style TargetType="Border">

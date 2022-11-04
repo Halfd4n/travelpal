@@ -33,6 +33,7 @@
                 TextAlignment="Center"
                 Foreground="#FF2E2C2C"
                 MouseDoubleClick="txtUsername_MouseDoubleClick"
+                ToolTip="Choose a user name (3-12 characters)."
                 >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -55,6 +56,7 @@
                 Margin="0,20,0,10"
                 Text="Choose password"
                 MouseDoubleClick="txtPassword_MouseDoubleClick"
+                ToolTip="Choose a password (min. 5 characters)."
                 >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -77,6 +79,7 @@
                 Text="Repeat password"
                 Margin="0,0,0,10"
                 MouseDoubleClick="txtConfirmPassword_MouseDoubleClick"
+                ToolTip="Repeat your password."
                 >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -95,7 +98,10 @@
                 Margin="0,30,0,20"
                 Opacity="0.85"
                 Foreground="#FF2E2C2C"
-                IsReadOnly="True">
+                IsReadOnly="True"
+                ToolTip="Pick your country of origin."
+                >
+                
             </ComboBox>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button 
@@ -114,6 +120,7 @@
                     Click="btnRegister_Click"
                     MouseEnter="btnRegister_MouseEnter"
                     MouseLeave="btnRegister_MouseLeave"
+                    ToolTip="Click here to register."
                     >
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -137,6 +144,7 @@
                     Click="btnCancel_Click"
                     MouseEnter="btnCancel_MouseEnter"
                     MouseLeave="btnCancel_MouseLeave"
+                    ToolTip="Click here to cancel."
                     >
                     <Button.Resources>
                         <Style TargetType="Border">

@@ -35,7 +35,8 @@
                 VerticalAlignment="Center"
                 Text="Username"
                 TextAlignment="Center"
-                MouseDoubleClick="txtUsername_MouseDoubleClick">
+                MouseDoubleClick="txtUsername_MouseDoubleClick"
+                ToolTip="Fill in your user name.">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -61,6 +62,7 @@
                     BorderThickness="0"
                     Opacity="0.85"
                     KeyDown="pswPassword_KeyDown"
+                    ToolTip="Fill in your password."
                     >
                 </PasswordBox>
             </Border>
@@ -93,6 +95,7 @@
                     FontSize="14"
                     BorderBrush="MediumSlateBlue"
                     Click="btnLogin_Click"
+                    ToolTip="Press here or Enter to sign in."
                     >
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -114,6 +117,7 @@
                     BorderThickness="3"
                     BorderBrush="MediumSlateBlue"
                     Click="btnRegister_Click"
+                    ToolTip="Press here to register to TravelPal."
                     >
                     <Button.Resources>
                         <Style TargetType="Border">

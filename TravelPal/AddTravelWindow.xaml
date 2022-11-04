@@ -27,6 +27,7 @@
                 Background="MintCream"
                 BorderBrush="MediumSlateBlue"
                 BorderThickness="2"
+                ToolTip="Fill in your destination."
                 >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -50,6 +51,7 @@
                 BorderBrush="MediumSlateBlue"
                 BorderThickness="2"
                 SelectionChanged="cbCountry_SelectionChanged"
+                ToolTip="Select the country of your destination."
                 >
             </ComboBox>
             <ComboBox
@@ -67,6 +69,7 @@
                 BorderBrush="MediumSlateBlue"
                 BorderThickness="2"
                 SelectionChanged="cbTripOrVacation_SelectionChanged"
+                ToolTip="Select if your travel is a trip or vacation."
                 >
             </ComboBox>
             <ComboBox
@@ -85,6 +88,7 @@
                 BorderBrush="MediumSlateBlue"
                 BorderThickness="2"
                 SelectionChanged="cbTripType_SelectionChanged"
+                ToolTip="Select if your trip is occupational or leisure."
                 >
             </ComboBox>
             <CheckBox
@@ -101,6 +105,7 @@
                 Visibility="Hidden"
                 Checked="xbAllInclusive_Checked"
                 Unchecked="xbAllInclusive_Unchecked"
+                ToolTip="Check if your vacation is all inclusive."
                 >
                 <TextBlock
                     FlowDirection="LeftToRight"
@@ -125,6 +130,7 @@
                 BorderBrush="MediumSlateBlue"
                 BorderThickness="2"
                 Background="MintCream"
+                ToolTip="Fill in number of travelers."
                 >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -251,6 +257,7 @@
                 Foreground="#FF2E2C2C"
                 BorderThickness="2"
                 Text="Start"
+                ToolTip="Choose starting date of your travel."
                 >
             </DatePicker>
             <DatePicker
@@ -264,6 +271,7 @@
                 Foreground="#FF2E2C2C"
                 BorderThickness="2"
                 Text="End"
+                ToolTip="Choose ending date of your travel."
                 >
             </DatePicker>
             <Label
@@ -312,6 +320,7 @@
                 BorderThickness="2"
                 Margin="0,10,130,0"
                 Click="btnAddTravel_Click"
+                ToolTip="Press here to add your new travel."
                 >
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -334,6 +343,7 @@
                 BorderThickness="2"
                 Margin="130,-30,0,0"
                 Click="btnCancel_Click"
+                ToolTip="Press here to cancel adding a new travel."
                 >
                 <Button.Resources>
                     <Style TargetType="Border">

@@ -14,10 +14,6 @@ public enum EuropeanCountries
     Belgium,
     Bulgaria,
     Croatia,
-    [Display(Name = "Republic of Cyprus")]
-    Republic_of_Cyprus,
-    [Display(Name = "Czech Republic")]
-    Czech_Republic,
     Denmark,
     Estonia,
     Finland,

@@ -13,16 +13,12 @@ public enum Countries
     Canada,
     Cuba,
     Mexico,
-    [Display(Name = "El Salvador")]
-    El_Salvador,
     Panama,
     Colombia,
     Peru,
     Argentina,
     Brazil,
     Mongolia,
-    [Display(Name = "South Korea")]
-    South_Korea,
     Japan,
     Taiwan,
     Vietnam,
@@ -31,16 +27,10 @@ public enum Countries
     Egypt,
     Morocco,
     Liberia,
-    [Display(Name = "South Africa")]
-    South_Africa,
     Austria,
     Belgium,
     Bulgaria,
     Croatia,
-    [Display(Name = "Republic of Cyprus")]
-    Republic_of_Cyprus,
-    [Display(Name = "Czech Republic")]
-    Czech_Republic,
     Denmark,
     Estonia,
     Finland,
