@@ -27,6 +27,7 @@ public partial class AddTravelWindow : Window
     private User currentUser;
     private bool isAllInclusive;
     private List<ListViewItem> itemsInPackingList = new();
+    private TravelDocument passport = new("Passport", false);
 
     public AddTravelWindow(UserManager userManager, TravelManager travelManager)
     {
@@ -354,89 +355,58 @@ public partial class AddTravelWindow : Window
     // Method to notice changes in selection in the cbCountry ComboBox:
     private void cbCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (cbCountry.SelectedItem != null && currentUser != null)
+        if (cbCountry.SelectedItem != null)
         {
             bool isUserCountryOfOriginInEurope = Enum.IsDefined(typeof(EuropeanCountries), currentUser.Location.ToString());
             bool isSelectedCountryOfDestinationInEurope = Enum.IsDefined(typeof(EuropeanCountries), cbCountry.SelectedItem);
 
-            if (isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
+            bool isPassportRequired = IsPassportRequired(isUserCountryOfOriginInEurope, isSelectedCountryOfDestinationInEurope);
+
+            bool isPassportInPackinList = IsPassportInPackingList();
+            
+            if (!isPassportInPackinList)
             {
-                foreach (IPackingListItem item in itemManager.AllPackingListItems)
-                {
-                    if (item.Name.ToLower().Equals("passport"))
-                    {
-                        TravelDocument document = (TravelDocument)item;
+                itemManager.AllPackingListItems.Add(passport);
 
-                        if (document.IsRequired == true)
-                        {
-                            document.IsRequired = false;
-
-                            UpdateListView();
-                        }
-                    }
-                }
+                UpdateListView();
             }
-            else if(isUserCountryOfOriginInEurope && !isSelectedCountryOfDestinationInEurope)
+            else
             {
-                foreach (IPackingListItem item in itemManager.AllPackingListItems)
-                {
-                    if (item.Name.ToLower().Equals("passport"))
-                    {
-                        TravelDocument document = (TravelDocument)item;
-
-                        if (document.IsRequired == false)
-                        {
-                            document.IsRequired = true;
-
-                            UpdateListView();
-                        }
-                    }
-                }
-            }
-            else if (!isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
-            {
-                foreach (IPackingListItem item in itemManager.AllPackingListItems)
-                {
-                    if (item.Name.ToLower().Equals("passport"))
-                    {
-                        TravelDocument document = (TravelDocument)item;
-
-                        if (document.IsRequired == false)
-                        {
-                            document.IsRequired = true;
-
-                            UpdateListView();
-                        }
-                    }
-                }
-            }
-            else if (isUserCountryOfOriginInEurope && !isSelectedCountryOfDestinationInEurope)
-            {
-                TravelDocument passport = new("Passport", true);
-
-                bool isAddingPassport = itemManager.AddItem(passport);
-
-                if (isAddingPassport)
-                {
-                    UpdateListView();
-                }
-            } 
-            else if(!isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
-            {
-                if (lvTravelItems.Items.Contains("Passport"))
-                {
-                    lvTravelItems.Items.Remove("Passport");
-                }
-
-                TravelDocument passport = new("Passport", true);
-
-                bool isAddingPassport = itemManager.AddItem(passport);
-
-                if (isAddingPassport)
-                {
-                    UpdateListView();
-                }
+                UpdateListView();
             }
         }
+    }
+
+    // Method to check if passport is required:
+    private bool IsPassportRequired(bool isUserCountryOfOriginInEurope, bool isSelectedCountryOfDestinationInEurope)
+    {
+        if (isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
+        {
+            passport.IsRequired = false;
+        }
+        else if (isUserCountryOfOriginInEurope && !isSelectedCountryOfDestinationInEurope)
+        {
+            passport.IsRequired = true;
+        }
+        else
+        {
+            passport.IsRequired = true;
+        }
+
+        return false;
+    }
+
+    // Method to check if there is a passport in packing list:
+    private bool IsPassportInPackingList()
+    {
+        foreach(IPackingListItem packingItem in itemManager.AllPackingListItems)
+        {
+            if (packingItem.Name.ToLower().Equals("passport"))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

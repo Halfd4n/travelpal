@@ -28,6 +28,8 @@ public partial class TravelDetailsWindow : Window
     private int arrayIndex;
     private TripTypes tripTypesEnum;
     private List<ListViewItem> itemsInPackingList = new();
+    private TravelDocument passport = new("Passport", false);
+    private TravelDocument passportToRemove;
 
     public TravelDetailsWindow(UserManager userManager, TravelManager travelManager, Travel selectedTravel)
     {
@@ -277,100 +279,77 @@ public partial class TravelDetailsWindow : Window
     // Method to notice changes in selection in the cbCountry ComboBox:
     private void cbCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (cbCountry.SelectedItem is not null && userManager.SignedInUser is not null)
+
+        if (cbCountry.SelectedItem != null)
         {
             bool isUserCountryOfOriginInEurope = Enum.IsDefined(typeof(EuropeanCountries), userManager.SignedInUser.Location.ToString());
             bool isSelectedCountryOfDestinationInEurope = Enum.IsDefined(typeof(EuropeanCountries), cbCountry.SelectedItem);
-            
 
-            if (lvTravelItems.Items.Equals("Passport"))
+            bool isPassportRequired = IsPassportRequired(isUserCountryOfOriginInEurope, isSelectedCountryOfDestinationInEurope);
+
+            bool isPassportInPackinList = IsPassportInPackingList();
+
+            if (!isPassportInPackinList)
             {
-                if (isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
-                {
-                    foreach (IPackingListItem item in itemManager.AllPackingListItems)
-                    {
-                        if (item.Name.ToLower().Equals("passport"))
-                        {
-                            TravelDocument document = (TravelDocument)item;
-
-                            if (document.IsRequired == true)
-                            {
-                                document.IsRequired = false;
-
-                                UpdateListView();
-                            }
-                        }
-                    }
-                }
-                else if (!isUserCountryOfOriginInEurope && isUserCountryOfOriginInEurope)
-                {
-                    foreach (IPackingListItem item in itemManager.AllPackingListItems)
-                    {
-                        if (item.Name.ToLower().Equals("passport"))
-                        {
-                            TravelDocument document = (TravelDocument)item;
-
-                            if (document.IsRequired == false)
-                            {
-                                document.IsRequired = true;
-
-                                UpdateListView();
-                            }
-                        }
-                    }
-                }
-                else if (isUserCountryOfOriginInEurope && !isUserCountryOfOriginInEurope)
-                {
-                    foreach (IPackingListItem item in itemManager.AllPackingListItems)
-                    {
-                        if (item.Name.ToLower().Equals("passport"))
-                        {
-                            TravelDocument document = (TravelDocument)item;
-
-                            if (document.IsRequired == false)
-                            {
-                                document.IsRequired = true;
-
-                                UpdateListView();
-                            }
-                        }
-                    }
-                }
+                selectedTravel.PackingList.Add(passport);
+                
+                UpdateListView();
             }
-            
-            else if (!lvTravelItems.Items.Equals("Passport"))
+            else
             {
-
-                if (isUserCountryOfOriginInEurope && !isSelectedCountryOfDestinationInEurope)
+                foreach (IPackingListItem item in selectedTravel.PackingList)
                 {
-                    TravelDocument passport = new("Passport", true);
-
-                    bool isAddingPassport = itemManager.AddItem(passport);
-
-                    if (isAddingPassport)
+                    if (item.Name.ToLower().Equals("passport"))
                     {
-                        UpdateListView();
-
+                        passportToRemove = (TravelDocument)item;
                     }
                 }
-                else if (!isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
-                {
-                    TravelDocument passport = new("Passport", true);
 
-                    bool isAddingPassport = itemManager.AddItem(passport);
+                selectedTravel.PackingList.Remove(passportToRemove);
 
-                    if (isAddingPassport)
-                    {
-                        UpdateListView();
+                selectedTravel.PackingList.Add(passport);
 
-                    }
-                }
+                UpdateListView();
             }
+
+
         }
     }
 
-        // Method to clear the content of txtDestination TextBox via a double click action on the textbox:
-        private void txtDestination_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    // Method to check if passport is already in packing list:
+    private bool IsPassportInPackingList()
+    {
+        foreach (IPackingListItem packingItem in selectedTravel.PackingList)
+        {
+            if (packingItem.Name.ToLower().Equals("passport"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Method to check if passport is required:
+    private bool IsPassportRequired(bool isUserCountryOfOriginInEurope, bool isSelectedCountryOfDestinationInEurope)
+    {
+        if (isUserCountryOfOriginInEurope && isSelectedCountryOfDestinationInEurope)
+        {
+            passport.IsRequired = false;
+        }
+        else if (isUserCountryOfOriginInEurope && !isSelectedCountryOfDestinationInEurope)
+        {
+            passport.IsRequired = true;
+        }
+        else
+        {
+            passport.IsRequired = true;
+        }
+
+        return false;
+    }
+
+    // Method to clear the content of txtDestination TextBox via a double click action on the textbox:
+    private void txtDestination_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             txtDestination.Clear();
         }

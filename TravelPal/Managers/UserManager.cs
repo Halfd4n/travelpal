@@ -19,11 +19,14 @@ public class UserManager
         OtherItem defautlItem2 = new("Tickets", 2);
         OtherItem defautlItem3 = new("T-Shirt", 3);
 
+        TravelDocument defaultTravelDocument1 = new("Passport", false);
+
         List<IPackingListItem> defaultPackingList1 = new();
 
         defaultPackingList1.Add(defautlItem1);
         defaultPackingList1.Add(defautlItem2);
         defaultPackingList1.Add(defautlItem3);
+        defaultPackingList1.Add(defaultTravelDocument1);
 
         DateTime defaultStart1 = new(2023, 2, 10);
         DateTime defaultEnd1 = new(2023, 2, 12);
@@ -37,13 +40,13 @@ public class UserManager
         OtherItem defaultItem4 = new("Flipflops", 1);
         OtherItem defaultItem5 = new("Shades", 2);
 
-        TravelDocument defaultTravelDocument = new("Passport", false);
+        TravelDocument defaultTravelDocument2 = new("Passport", false);
 
         List<IPackingListItem> defaultPackingList2 = new();
 
         defaultPackingList2.Add(defaultItem4);
         defaultPackingList2.Add(defaultItem5);
-        defaultPackingList2.Add(defaultTravelDocument);
+        defaultPackingList2.Add(defaultTravelDocument2);
 
         DateTime defaultStart2 = new(2022, 12, 10);
         DateTime defaultEnd2 = new(2022, 12, 24);
